@@ -87,6 +87,7 @@ class Graph:  # graful problemei
         continutFisier = f.read()
         siruriStari = continutFisier.split("stari_finale")
         self.start = obtineStive(siruriStari[0])  # stare initiala
+
         self.scopuri = []
         siruriStariFinale = siruriStari[1].strip().split("---")
         for scop in siruriStariFinale:

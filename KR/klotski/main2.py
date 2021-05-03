@@ -102,6 +102,7 @@ class Graph:  # graful problemei
     def testeaza_scop(self, nodCurent):
         return self.testeaza_matrice(nodCurent.info)
 
+    # gresite TREBUIE SA POT MUTA DOAR DACA E GOL IN STANGA//DREAPTA/SUS/JOS  (sunt puncte)
     def mutare_stanga_valida(self, matrice, pozitii, piesa):
         piese_intercalate = {}
         for i, j in pozitii:
@@ -414,7 +415,7 @@ if __name__ == '__main__':
 
     caleFolderInput = "input"
     caleFolderOutput = "output"
-    nSol = 3
+    nSol = 1
     timpTimeout = 20
     """
     print("Cale Folder input:")

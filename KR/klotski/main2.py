@@ -13,7 +13,7 @@ class NodParcurgere:
     def __init__(self, info, listaPiese, parinte, stariIncercate, cost=0, h=0):
         self.info = info
         self.listaPiese = listaPiese
-        self.stariIncercate = stariIncercate[:]
+        self.stariIncercate = copy.deepcopy(stariIncercate)
         self.parinte = parinte  # parintele din arborele de parcurgere
         self.g = cost  # consider cost=1 pentru o mutare
         self.h = h
@@ -104,73 +104,118 @@ class Graph:  # graful problemei
 
     # gresite TREBUIE SA POT MUTA DOAR DACA E GOL IN STANGA//DREAPTA/SUS/JOS  (sunt puncte)
     def mutare_stanga_valida(self, matrice, pozitii, piesa):
-        piese_intercalate = {}
-        for i, j in pozitii:
-            if ((piesa != "*" and j < 1) or matrice[i][j - 1] == "#"):
-                return 0
-            # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
-            if (matrice[i][j - 1] not in ['.', piesa]):
-                if (matrice[i][j - 1] not in piese_intercalate.keys()):
-                    piese_intercalate[matrice[i][j - 1]] = 1
-                else:
-                    piese_intercalate[matrice[i][j - 1]] += 1
-
-        for k in piese_intercalate.keys():
-            if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
-                return 0
-
+        if (piesa!="*"):
+            for i,j in pozitii:
+                if (j==0 or matrice[i][j-1] not in ['.',piesa]):
+                    return 0
+        else:
+            for i,j in pozitii:
+                if (j!=0):
+                    if (matrice[i][j-1] not in ['.',piesa]):
+                        return 0
         return 1
+
+
+
+
+        # piese_intercalate = {}
+        # for i, j in pozitii:
+        #     if ((piesa != "*" and j < 1) or matrice[i][j - 1] == "#"):
+        #         return 0
+        #     # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
+        #     if (matrice[i][j - 1] not in ['.', piesa]):
+        #         if (matrice[i][j - 1] not in piese_intercalate.keys()):
+        #             piese_intercalate[matrice[i][j - 1]] = 1
+        #         else:
+        #             piese_intercalate[matrice[i][j - 1]] += 1
+        #
+        # for k in piese_intercalate.keys():
+        #     if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
+        #         return 0
+        #
+        # return 1
 
     def mutare_dreapta_valida(self, matrice, pozitii, piesa):
-        piese_intercalate = {}
-        for i, j in pozitii:
-            if ((piesa != "*" and j > len(matrice[i]) + 2) or matrice[i][j + 1] == "#"):
-                return 0
-            # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
-            if (matrice[i][j + 1] not in ['.', piesa]):
-                if (matrice[i][j + 1] not in piese_intercalate.keys()):
-                    piese_intercalate[matrice[i][j + 1]] = 1
-                else:
-                    piese_intercalate[matrice[i][j + 1]] += 1
-
-        for k in piese_intercalate.keys():
-            if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
-                return 0
+        if (piesa!="*"):
+            for i,j in pozitii:
+                if (j==len(matrice[i]) or matrice[i][j+1] not in ['.',piesa]):
+                    return 0
+        else:
+            for i,j in pozitii:
+                if (j!=len(matrice[i])):
+                    if (matrice[i][j+1] not in ['.',piesa]):
+                        return 0
         return 1
+
+        # piese_intercalate = {}
+        # for i, j in pozitii:
+        #     if ((piesa != "*" and j > len(matrice[i]) + 2) or matrice[i][j + 1] == "#"):
+        #         return 0
+        #     # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
+        #     if (matrice[i][j + 1] not in ['.', piesa]):
+        #         if (matrice[i][j + 1] not in piese_intercalate.keys()):
+        #             piese_intercalate[matrice[i][j + 1]] = 1
+        #         else:
+        #             piese_intercalate[matrice[i][j + 1]] += 1
+        #
+        # for k in piese_intercalate.keys():
+        #     if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
+        #         return 0
+        # return 1
 
     def mutare_sus_valida(self, matrice, pozitii, piesa):
-        piese_intercalate = {}
-        for i, j in pozitii:
-            if ((piesa != "*" and i < 1) or matrice[i - 1][j] == "#"):
-                return 0
-            # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
-            if (matrice[i - 1][j] not in ['.', piesa]):
-                if (matrice[i - 1][j] not in piese_intercalate.keys()):
-                    piese_intercalate[matrice[i - 1][j]] = 1
-                else:
-                    piese_intercalate[matrice[i - 1][j]] += 1
-
-        for k in piese_intercalate.keys():
-            if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
-                return 0
+        if (piesa!="*"):
+            for i,j in pozitii:
+                if (i==0 or matrice[i-1][j] not in ['.',piesa]):
+                    return 0
+        else:
+            for i,j in pozitii:
+                if (i!=0):
+                    if (matrice[i-1][j] not in ['.',piesa]):
+                        return 0
         return 1
+        # piese_intercalate = {}
+        # for i, j in pozitii:
+        #     if ((piesa != "*" and i < 1) or matrice[i - 1][j] == "#"):
+        #         return 0
+        #     # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
+        #     if (matrice[i - 1][j] not in ['.', piesa]):
+        #         if (matrice[i - 1][j] not in piese_intercalate.keys()):
+        #             piese_intercalate[matrice[i - 1][j]] = 1
+        #         else:
+        #             piese_intercalate[matrice[i - 1][j]] += 1
+        #
+        # for k in piese_intercalate.keys():
+        #     if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
+        #         return 0
+        # return 1
 
     def mutare_jos_valida(self, matrice, pozitii, piesa):
-        piese_intercalate = {}
-        for i, j in pozitii:
-            if ((piesa != "*" and i > len(matrice) - 2) or matrice[i + 1][j] == "#"):
-                return 0
-            # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
-            if (matrice[i + 1][j] not in ['.', piesa]):
-                if (matrice[i + 1][j] not in piese_intercalate.keys()):
-                    piese_intercalate[matrice[i + 1][j]] = 1
-                else:
-                    piese_intercalate[matrice[i + 1][j]] += 1
-
-        for k in piese_intercalate.keys():
-            if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
-                return 0
+        if (piesa!="*"):
+            for i,j in pozitii:
+                if (i==(len(matrice)-1) or matrice[i+1][j] not in ['.',piesa]):
+                    return 0
+        else:
+            for i,j in pozitii:
+                if (i!=len(matrice)-1):
+                    if (matrice[i+1][j] not in ['.',piesa]):
+                        return 0
         return 1
+        # piese_intercalate = {}
+        # for i, j in pozitii:
+        #     if ((piesa != "*" and i > len(matrice) - 2) or matrice[i + 1][j] == "#"):
+        #         return 0
+        #     # verificam ca numarul partilor dintr-o piesa care sunt mutate sa fie egal cu lungimea piesei ( toata piesa sa se muta)
+        #     if (matrice[i + 1][j] not in ['.', piesa]):
+        #         if (matrice[i + 1][j] not in piese_intercalate.keys()):
+        #             piese_intercalate[matrice[i + 1][j]] = 1
+        #         else:
+        #             piese_intercalate[matrice[i + 1][j]] += 1
+        #
+        # for k in piese_intercalate.keys():
+        #     if (len(self.pozitii_dupa_piesa(matrice, k)) != piese_intercalate[k]):
+        #         return 0
+        # return 1
 
     def afiseaza_matrice(self, matrice):
         for lista in matrice:
@@ -228,7 +273,11 @@ class Graph:  # graful problemei
 
     # va genera succesorii sub forma de noduri in arborele de parcurgere
     def genereazaSuccesori(self, nodCurent, tip_euristica="euristica banala"):
-        print(nodCurent.stariIncercate)
+
+        if (nodCurent.info[0][3]=="*"):
+            print("A")
+            return 2
+
         listaSuccesori = []
         copie_matrice = copy.deepcopy(nodCurent.info)
 
@@ -242,13 +291,15 @@ class Graph:  # graful problemei
             # print("\n" * 50)
             pret = len(pozitii) if (piesa != "*") else 1
 
+
             if (self.mutare_stanga_valida(copie_matrice, pozitii, piesa)):
 
                 copie_matrice_st = copy.deepcopy(copie_matrice)
                 self.mutare(copie_matrice_st, pozitii, 'stanga')
-                stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
-                stariIncercateNoi.append(copie_matrice_st)
 
+                stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
+
+                stariIncercateNoi.append(copie_matrice_st)
 
                 if (copie_matrice_st not in nodCurent.stariIncercate):
                     listaSuccesori.append(
@@ -293,7 +344,6 @@ class Graph:  # graful problemei
 
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_dr)
-
 
                 if (copie_matrice_dr not in nodCurent.stariIncercate):
                     listaSuccesori.append(
@@ -344,7 +394,6 @@ def uniform_cost(gr, nrSolutiiCautate=1):
     c = [NodParcurgere(gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
 
     while len(c) > 0:
-        print("COX")
         nodCurent = c.pop(0)
         if gr.testeaza_scop(nodCurent):
             print("Solutie: ")

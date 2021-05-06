@@ -10,7 +10,8 @@ import os
 
 # informatii despre un nod din arborele de parcurgere (nu din graful initial)
 class NodParcurgere:
-    def __init__(self, info, listaPiese, parinte, stariIncercate, cost=0, h=0):
+    def __init__(self,miscariFacute, info, listaPiese, parinte, stariIncercate, cost=0, h=0):
+        self.miscariFacute = miscariFacute
         self.info = info
         self.listaPiese = listaPiese
         self.stariIncercate = copy.deepcopy(stariIncercate)
@@ -58,6 +59,7 @@ class NodParcurgere:
         out=""
         out+="Cost :"+str(self.g)+"\n"
         out+="Numar stari incercate:"+str(len(self.stariIncercate))+"\n"
+        out+="Miscari incercate:\n" + self.miscariFacute +"\n"
         matriceOut=""
         for line in [''.join(x) for x in self.info]:
             matriceOut+=line+"\n"
@@ -92,12 +94,11 @@ class Graph:  # graful problemei
 
     # testam daca matricea e solutie
     def testeaza_matrice(self, matrice):
-        # for i in range(len(matrice)):
-        #     for j in range(len(matrice[i])):
-        #         if (matrice[i][j] == "*"):
-        #             return 0
-        # return 1
-        return "*" in matrice[0]
+        for i in range(len(matrice)):
+            for j in range(len(matrice[i])):
+                if (matrice[i][j] == "*"):
+                    return 0
+        return 1
 
     def testeaza_scop(self, nodCurent):
         return self.testeaza_matrice(nodCurent.info)
@@ -106,7 +107,7 @@ class Graph:  # graful problemei
     def mutare_stanga_valida(self, matrice, pozitii, piesa):
         if (piesa!="*"):
             for i,j in pozitii:
-                if (j==0 or matrice[i][j-1] not in ['.',piesa]):
+                if (j==0 or (matrice[i][j-1] not in ['.',piesa])):
                     return 0
         else:
             for i,j in pozitii:
@@ -138,11 +139,11 @@ class Graph:  # graful problemei
     def mutare_dreapta_valida(self, matrice, pozitii, piesa):
         if (piesa!="*"):
             for i,j in pozitii:
-                if (j==len(matrice[i]) or matrice[i][j+1] not in ['.',piesa]):
+                if (j==len(matrice[i])-1 or (matrice[i][j+1] not in ['.',piesa])):
                     return 0
         else:
             for i,j in pozitii:
-                if (j!=len(matrice[i])):
+                if (j!=len(matrice[i])-1):
                     if (matrice[i][j+1] not in ['.',piesa]):
                         return 0
         return 1
@@ -166,7 +167,7 @@ class Graph:  # graful problemei
     def mutare_sus_valida(self, matrice, pozitii, piesa):
         if (piesa!="*"):
             for i,j in pozitii:
-                if (i==0 or matrice[i-1][j] not in ['.',piesa]):
+                if (i==0 or (matrice[i-1][j] not in ['.',piesa])):
                     return 0
         else:
             for i,j in pozitii:
@@ -193,7 +194,7 @@ class Graph:  # graful problemei
     def mutare_jos_valida(self, matrice, pozitii, piesa):
         if (piesa!="*"):
             for i,j in pozitii:
-                if (i==(len(matrice)-1) or matrice[i+1][j] not in ['.',piesa]):
+                if (i==(len(matrice)-1) or (matrice[i+1][j] not in ['.',piesa])):
                     return 0
         else:
             for i,j in pozitii:
@@ -222,7 +223,14 @@ class Graph:  # graful problemei
             for x in lista:
                 print(x, end=' ')
             print()
+    def matrice_to_string(self,matrice,piesa,directie):
 
+        out="Am mutat "+piesa+" in "+directie+"\n"
+        for lista in matrice:
+            for x in lista:
+                out+=x+" "
+            out+="\n"
+        return out
     def pozitii_dupa_piesa(self, matrice, piesa):
         pozitii = []
         for i in range(len(matrice)):
@@ -237,16 +245,19 @@ class Graph:  # graful problemei
                 # daca e pe margine, iesim
                 if (j == 0):
                     matrice[i][j] = '.'
-                copie = matrice[i][j - 1]
-                matrice[i][j - 1] = matrice[i][j]
-                matrice[i][j] = copie
+                else:
+                    copie = matrice[i][j - 1]
+                    matrice[i][j - 1] = matrice[i][j]
+                    matrice[i][j] = copie
         elif (directie == 'sus'):
             for i, j in pozitii:
                 if (i == 0):
                     matrice[i][j] = '.'
-                copie = matrice[i - 1][j]
-                matrice[i - 1][j] = matrice[i][j]
-                matrice[i][j] = copie
+                else:
+                    copie = matrice[i - 1][j]
+                    matrice[i - 1][j] = matrice[i][j]
+                    matrice[i][j] = copie
+
         elif (directie == 'jos'):
             copie_pozitii = copy.deepcopy(pozitii)
             copie_pozitii = sorted(copie_pozitii, key=lambda x: x[0], reverse=True)
@@ -254,9 +265,10 @@ class Graph:  # graful problemei
             for i, j in copie_pozitii:
                 if (i == len(matrice) - 1):
                     matrice[i][j] = '.'
-                copie = matrice[i + 1][j]
-                matrice[i + 1][j] = matrice[i][j]
-                matrice[i][j] = copie
+                else:
+                    copie = matrice[i + 1][j]
+                    matrice[i + 1][j] = matrice[i][j]
+                    matrice[i][j] = copie
         elif (directie == 'dreapta'):
             # sortam sa se faca interschimbarea de la dreapta la stanga (sa ducem elementul de la j+1 pana in stanga formei)
             copie_pozitii = copy.deepcopy(pozitii)
@@ -265,20 +277,21 @@ class Graph:  # graful problemei
             for i, j in copie_pozitii:
                 if (j == len(matrice[i]) - 1):
                     matrice[i][j] = '.'
-                copie = matrice[i][j + 1]
-                matrice[i][j + 1] = matrice[i][j]
-                matrice[i][j] = copie
+                else:
+                    copie = matrice[i][j + 1]
+                    matrice[i][j + 1] = matrice[i][j]
+                    matrice[i][j] = copie
         else:
             return 0
 
     # va genera succesorii sub forma de noduri in arborele de parcurgere
     def genereazaSuccesori(self, nodCurent, tip_euristica="euristica banala"):
         self.toateStarileIncercate.append(nodCurent.info)
+        #if (len(self.toateStarileIncercate )==2):
+        #   self.afiseaza_matrice(nodCurent.info)
 
 
-        if (nodCurent.info[0][3]=="*"):
-            print("A")
-            return 2
+        #print (nodCurent.info in self.toateStarileIncercate)
 
         listaSuccesori = []
         copie_matrice = copy.deepcopy(nodCurent.info)
@@ -294,14 +307,16 @@ class Graph:  # graful problemei
                 copie_matrice_st = copy.deepcopy(copie_matrice)
                 self.mutare(copie_matrice_st, pozitii, 'stanga')
 
+
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
 
                 stariIncercateNoi.append(copie_matrice_st)
 
-                if (copie_matrice_st not in nodCurent.stariIncercate and copie_matrice_st not in self.toateStarileIncercate):
+                if (copie_matrice_st not in nodCurent.stariIncercate) and (copie_matrice_st not in self.toateStarileIncercate):
                     listaSuccesori.append(
-                        NodParcurgere(copie_matrice_st, self.lista_piese,nodCurent, stariIncercateNoi, nodCurent.g + pret,
+                        NodParcurgere(nodCurent.miscariFacute+self.matrice_to_string(copie_matrice,piesa,'stanga'),copie_matrice_st, self.lista_piese,nodCurent, stariIncercateNoi, nodCurent.g + pret,
                                       self.calculeaza_h(copie_matrice_st, tip_euristica)))
+
 
             if (self.mutare_jos_valida(copie_matrice, pozitii, piesa)):
 
@@ -315,9 +330,10 @@ class Graph:  # graful problemei
 
                 if (copie_matrice_jos not in nodCurent.stariIncercate and copie_matrice_jos not in self.toateStarileIncercate):
                     listaSuccesori.append(
-                        NodParcurgere(copie_matrice_jos, self.lista_piese, nodCurent, stariIncercateNoi,
+                        NodParcurgere(nodCurent.miscariFacute+self.matrice_to_string(copie_matrice,piesa,'jos'),copie_matrice_jos, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
                                       self.calculeaza_h(copie_matrice_jos, tip_euristica)))
+
 
             if (self.mutare_sus_valida(copie_matrice, pozitii, piesa)):
 
@@ -328,11 +344,12 @@ class Graph:  # graful problemei
                 stariIncercateNoi.append(copie_matrice_sus)
 
 
-                if (copie_matrice_sus not in nodCurent.stariIncercate and copie_matrice_sus not in self.toateStarileIncercate):
+                if (copie_matrice_sus not in nodCurent.stariIncercate) and (copie_matrice_sus not in self.toateStarileIncercate):
                     listaSuccesori.append(
-                        NodParcurgere(copie_matrice_sus, self.lista_piese, nodCurent, stariIncercateNoi,
+                        NodParcurgere(nodCurent.miscariFacute+self.matrice_to_string(copie_matrice,piesa,'sus'),copie_matrice_sus, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
                                       self.calculeaza_h(copie_matrice_sus, tip_euristica)))
+
 
             if (self.mutare_dreapta_valida(copie_matrice, pozitii, piesa)):
 
@@ -342,9 +359,9 @@ class Graph:  # graful problemei
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_dr)
 
-                if (copie_matrice_dr not in nodCurent.stariIncercate and copie_matrice_dr not in self.toateStarileIncercate):
+                if (copie_matrice_dr not in nodCurent.stariIncercate) and (copie_matrice_dr not in self.toateStarileIncercate):
                     listaSuccesori.append(
-                        NodParcurgere(copie_matrice_dr, self.lista_piese, nodCurent, stariIncercateNoi,
+                        NodParcurgere(nodCurent.miscariFacute+self.matrice_to_string(copie_matrice,piesa,'dreapta'),copie_matrice_dr, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
                                       self.calculeaza_h(copie_matrice_dr, tip_euristica)))
 
@@ -388,7 +405,7 @@ class Graph:  # graful problemei
 
 def uniform_cost(gr, nrSolutiiCautate=1):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
-    c = [NodParcurgere(gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
+    c = [NodParcurgere("",gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
 
     while len(c) > 0:
         nodCurent = c.pop(0)
@@ -462,7 +479,7 @@ if __name__ == '__main__':
 
     caleFolderInput = "input"
     caleFolderOutput = "output"
-    nSol = 1
+    nSol = 3
     timpTimeout = 20
     """
     print("Cale Folder input:")

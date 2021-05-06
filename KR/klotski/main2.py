@@ -55,16 +55,14 @@ class NodParcurgere:
     # euristica banală: daca nu e stare scop, returnez 1, altfel 0
 
     def __str__(self):
-        return "0"
-
-    """
-    def __str__(self):
-        sir=""
-        for stiva in self.info:
-            sir+=(str(stiva))+"\n"
-        sir+="--------------\n"
-        return sir
-    """
+        out=""
+        out+="Cost :"+str(self.g)+"\n"
+        out+="Numar stari incercate:"+str(len(self.stariIncercate))+"\n"
+        matriceOut=""
+        for line in [''.join(x) for x in self.info]:
+            matriceOut+=line+"\n"
+        out+="Matricea: \n"+matriceOut
+        return out
 
 
 class Graph:  # graful problemei
@@ -87,17 +85,19 @@ class Graph:  # graful problemei
 
         self.start = matrice
         self.lista_piese = lista_piese
+        self.toateStarileIncercate = []
 
         print("Stare Initiala:", self.start)
         input()
 
     # testam daca matricea e solutie
     def testeaza_matrice(self, matrice):
-        for i in range(len(matrice)):
-            for j in range(len(matrice[i])):
-                if (matrice[i][j] == "*"):
-                    return 0
-        return 1
+        # for i in range(len(matrice)):
+        #     for j in range(len(matrice[i])):
+        #         if (matrice[i][j] == "*"):
+        #             return 0
+        # return 1
+        return "*" in matrice[0]
 
     def testeaza_scop(self, nodCurent):
         return self.testeaza_matrice(nodCurent.info)
@@ -273,6 +273,8 @@ class Graph:  # graful problemei
 
     # va genera succesorii sub forma de noduri in arborele de parcurgere
     def genereazaSuccesori(self, nodCurent, tip_euristica="euristica banala"):
+        self.toateStarileIncercate.append(nodCurent.info)
+
 
         if (nodCurent.info[0][3]=="*"):
             print("A")
@@ -284,11 +286,6 @@ class Graph:  # graful problemei
         for piesa in nodCurent.listaPiese:
             pozitii = self.pozitii_dupa_piesa(copie_matrice, piesa)
 
-            # print(piesa+" pe :")
-            # print(pozitii)
-            # print("\n" *50)
-            # self.afiseaza_matrice(copie_matrice)
-            # print("\n" * 50)
             pret = len(pozitii) if (piesa != "*") else 1
 
 
@@ -301,7 +298,7 @@ class Graph:  # graful problemei
 
                 stariIncercateNoi.append(copie_matrice_st)
 
-                if (copie_matrice_st not in nodCurent.stariIncercate):
+                if (copie_matrice_st not in nodCurent.stariIncercate and copie_matrice_st not in self.toateStarileIncercate):
                     listaSuccesori.append(
                         NodParcurgere(copie_matrice_st, self.lista_piese,nodCurent, stariIncercateNoi, nodCurent.g + pret,
                                       self.calculeaza_h(copie_matrice_st, tip_euristica)))
@@ -316,7 +313,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi.append(copie_matrice_jos)
 
 
-                if (copie_matrice_jos not in nodCurent.stariIncercate):
+                if (copie_matrice_jos not in nodCurent.stariIncercate and copie_matrice_jos not in self.toateStarileIncercate):
                     listaSuccesori.append(
                         NodParcurgere(copie_matrice_jos, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
@@ -331,7 +328,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi.append(copie_matrice_sus)
 
 
-                if (copie_matrice_sus not in nodCurent.stariIncercate):
+                if (copie_matrice_sus not in nodCurent.stariIncercate and copie_matrice_sus not in self.toateStarileIncercate):
                     listaSuccesori.append(
                         NodParcurgere(copie_matrice_sus, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
@@ -345,7 +342,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_dr)
 
-                if (copie_matrice_dr not in nodCurent.stariIncercate):
+                if (copie_matrice_dr not in nodCurent.stariIncercate and copie_matrice_dr not in self.toateStarileIncercate):
                     listaSuccesori.append(
                         NodParcurgere(copie_matrice_dr, self.lista_piese, nodCurent, stariIncercateNoi,
                                       nodCurent.g + pret,
@@ -397,7 +394,7 @@ def uniform_cost(gr, nrSolutiiCautate=1):
         nodCurent = c.pop(0)
         if gr.testeaza_scop(nodCurent):
             print("Solutie: ")
-            nodCurent.afisDrum(True, True)
+            print(nodCurent)
             print("\n----------------\n")
             nrSolutiiCautate -= 1
             if nrSolutiiCautate == 0:
@@ -451,6 +448,7 @@ def a_star(gr, nrSolutiiCautate, tip_euristica):
 
 def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
+    toate_starile=[]
 
     print("\n\n##################\nSolutii obtinute cu UCS:")
     uniform_cost(gr, nrSolutiiCautate=nSol)

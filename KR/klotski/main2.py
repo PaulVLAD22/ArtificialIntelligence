@@ -374,27 +374,9 @@ class Graph:  # graful problemei
                 return 0
             else:
                 return 1  # minimul dintre costurile tuturor arcelor
-        # elif (tip_euristica =="euristica admisibila 1"):
-        #     stari_finale = self.scopuri[:]
-        #     nrMinim = float("inf")
-        #     # pentru fiecare stare scop
-        #     for stare_scop in stari_finale:
-        #         nrMutari = 0
-        #         # pentru fiecare stiva din infoNod (adica informatia nodului curent)
-        #         for i in range(len(infoNod)):
-        #
-        #             # pentru fiecare bloc din stiva din nodul curent
-        #             for j in range(len(infoNod[i])):
-        #                 #daca nu exista indicele blocului in stiva din starea scop (stiva din starea curenta e mai mare decat cea din starea scop)
-        #                 if (len(stare_scop[i])<=j):
-        #                     nrMutari += 1
-        #                 # daca informatiile blocurilor de la acelasi indice de stiva si acelasi nivel sunt diferite nrMutari creste cu 1
-        #                 elif stare_scop[i][j] != infoNod[i][j]:
-        #                     nrMutari += 1
-        #         # actualizam minimul
-        #         if nrMutari < nrMinim:
-        #             nrMinim = nrMutari
-        #     return nrMinim
+        elif (tip_euristica=="euristica_admisibila_1"):
+            return 0
+
 
     def __repr__(self):
         sir = ""
@@ -405,17 +387,18 @@ class Graph:  # graful problemei
 
 def uniform_cost(gr, nrSolutiiCautate=1):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
+    out=""
     c = [NodParcurgere("",gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
 
     while len(c) > 0:
         nodCurent = c.pop(0)
         if gr.testeaza_scop(nodCurent):
-            print("Solutie: ")
-            print(nodCurent)
-            print("\n----------------\n")
+            out+="Solutie: \n"
+            out+=nodCurent.__str__()+"\n"
+            out+="\n----------------\n"
             nrSolutiiCautate -= 1
             if nrSolutiiCautate == 0:
-                return
+                return out
 
         lSuccesori = gr.genereazaSuccesori(nodCurent)
 
@@ -432,21 +415,20 @@ def uniform_cost(gr, nrSolutiiCautate=1):
             else:
                 c.append(s)
 
-
 def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
     c = [NodParcurgere("",gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
-
+    out=""
     while len(c) > 0:
         nodCurent = c.pop(0)
 
         if gr.testeaza_scop(nodCurent):
-            print("Solutie: ")
-            print(nodCurent)
-            print("\n----------------\n")
+            out += "Solutie: \n"
+            out += nodCurent.__str__() + "\n"
+            out += "\n----------------\n"
             nrSolutiiCautate -= 1
             if nrSolutiiCautate == 0:
-                return
+                return out
         lSuccesori = gr.genereazaSuccesori(nodCurent, tip_euristica=tip_euristica)
         for s in lSuccesori:
             i = 0
@@ -464,15 +446,19 @@ def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala'):
 
 def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
-    toate_starile=[]
 
+    f_write = open(caleFolderOutput,'w')
 
     #print("\n\n##################\nSolutii obtinute cu UCS:")
     #uniform_cost(gr, nrSolutiiCautate=nSol)
 
-
     print("\n\n##################\nSolutii obtinute cu A*:")
-    a_star(gr, nrSolutiiCautate=3,tip_euristica="euristica banala")
+    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica banala")
+
+    if (out==None):
+        f_write.write("No Solutions")
+    else:
+        f_write.write(out)
 
     input()
 
@@ -483,7 +469,7 @@ if __name__ == '__main__':
 
     caleFolderInput = "input"
     caleFolderOutput = "output"
-    nSol = 3
+    nSol = 1
     timpTimeout = 20
     """
     print("Cale Folder input:")
@@ -497,6 +483,4 @@ if __name__ == '__main__':
     """
 
     for inputFilePath in os.listdir(caleFolderInput + "/"):
-        main(caleFolderInput + "/" + inputFilePath, caleFolderOutput, nSol, timpTimeout)
-
-#ruleaza la infinit
+        main(caleFolderInput + "/" + inputFilePath, caleFolderOutput+"/"+inputFilePath[0:len(inputFilePath)-4]+"_out.txt", nSol, timpTimeout)

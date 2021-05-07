@@ -1,8 +1,8 @@
-"""
-Dati enter dupa fiecare solutie afisata.
 
-Presupunem ca avem costul de mutare al unui bloc egal cu indicele in alfabet, cu indicii incepănd de la 1 (care se calculează prin 1+ diferenta dintre valoarea codului ascii al literei blocului de mutat si codul ascii al literei "a" ) .
-"""
+# 2 euristici de gandit
+# 1 euristica inadmisibila de gandit
+
+
 
 import copy
 import os
@@ -433,18 +433,17 @@ def uniform_cost(gr, nrSolutiiCautate=1):
                 c.append(s)
 
 
-def a_star(gr, nrSolutiiCautate, tip_euristica):
+def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
-    c = [NodParcurgere(gr.start, gr.lista_piese, None, [], 0, gr.calculeaza_h(gr.start))]
+    c = [NodParcurgere("",gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
 
     while len(c) > 0:
         nodCurent = c.pop(0)
 
         if gr.testeaza_scop(nodCurent):
             print("Solutie: ")
-            nodCurent.afisDrum(afisCost=True, afisLung=True)
+            print(nodCurent)
             print("\n----------------\n")
-            input()
             nrSolutiiCautate -= 1
             if nrSolutiiCautate == 0:
                 return
@@ -467,11 +466,16 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
     toate_starile=[]
 
-    print("\n\n##################\nSolutii obtinute cu UCS:")
-    uniform_cost(gr, nrSolutiiCautate=nSol)
 
-    # print("\n\n##################\nSolutii obtinute cu A*:")
-    # a_star(gr, nrSolutiiCautate=3,tip_euristica="euristica banala")
+    #print("\n\n##################\nSolutii obtinute cu UCS:")
+    #uniform_cost(gr, nrSolutiiCautate=nSol)
+
+
+    print("\n\n##################\nSolutii obtinute cu A*:")
+    a_star(gr, nrSolutiiCautate=3,tip_euristica="euristica banala")
+
+    input()
+
     # a_star(gr, nrSolutiiCautate=3,tip_euristica="euristica admisibila 1")
 
 

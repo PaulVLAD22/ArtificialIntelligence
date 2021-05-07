@@ -374,8 +374,19 @@ class Graph:  # graful problemei
                 return 0
             else:
                 return 1  # minimul dintre costurile tuturor arcelor
-        elif (tip_euristica=="euristica_admisibila_1"):
+        elif (tip_euristica=="euristica_admisibila_1"): # distanta piesei speciale de iesire (numar de mutari necesar pentru a iesi presupunand ca are free way)
+            pozitii = self.pozitii_dupa_piesa(infoNod,"*")
+            nrMiscariNecesare = 0
+            for i in range (len(infoNod)):
+                for j in range (len(infoNod[i])):
+                    if (i == 0 or i == len(infoNod)-1 or j==0 or j==len(infoNod[i])-1):
+                        for x in pozitii:
+                            nrMiscariNecesare = max (nrMiscariNecesare,abs(i-x[0])+abs(j-x[1]))
+            return nrMiscariNecesare
+        elif (tip_euristica == "euristica_admisibila_2"):
             return 0
+
+
 
 
     def __repr__(self):
@@ -453,7 +464,7 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     #uniform_cost(gr, nrSolutiiCautate=nSol)
 
     print("\n\n##################\nSolutii obtinute cu A*:")
-    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica banala")
+    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_1")
 
     if (out==None):
         f_write.write("No Solutions")

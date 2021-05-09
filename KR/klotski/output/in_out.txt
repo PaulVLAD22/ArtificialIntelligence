@@ -1,0 +1,110 @@
+Solutie: 
+Nr de Ordine:86
+Timp Calcul:0.08501124382019043
+Cost :19
+Lungime drum:20
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat a in stanga
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in jos
+# . # # 
+# b * # 
+# a . # 
+# # # # 
+Am mutat b in dreapta
+# . # # 
+# b . # 
+# a * # 
+# # # # 
+Am mutat a in sus
+# . # # 
+# . b # 
+# a * # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# a b # 
+# . * # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# a b # 
+# * . # 
+# # # # 
+Am mutat a in sus
+# . # # 
+# a . # 
+# * b # 
+# # # # 
+Am mutat * in sus
+# a # # 
+# . . # 
+# * b # 
+# # # # 
+Am mutat * in dreapta
+# a # # 
+# * . # 
+# . b # 
+# # # # 
+Am mutat a in jos
+# a # # 
+# . * # 
+# . b # 
+# # # # 
+Am mutat a in jos
+# . # # 
+# a * # 
+# . b # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# a b # 
+# # # # 
+Am mutat b in sus
+# . # # 
+# * . # 
+# a b # 
+# # # # 
+Am mutat a in dreapta
+# . # # 
+# * b # 
+# a . # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * b # 
+# . a # 
+# # # # 
+Am mutat a in stanga
+# * # # 
+# . b # 
+# . a # 
+# # # # 
+Am mutat a in sus
+# * # # 
+# . b # 
+# a . # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# a b # 
+# . . # 
+# # # # 
+
+Matricea: 
+#.##
+#ab#
+#..#
+####
+
+
+----------------

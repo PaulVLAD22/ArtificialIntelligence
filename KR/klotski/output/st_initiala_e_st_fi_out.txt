@@ -1,6 +1,8 @@
 Solutie: 
+Nr de Ordine:1
+Timp Calcul:0.0
 Cost :0
-Numar stari incercate:1
+Lungime drum:1
 Miscari incercate:
 
 Matricea: 

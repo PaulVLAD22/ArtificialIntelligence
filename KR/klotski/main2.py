@@ -4,7 +4,7 @@
 #un fisier de input care să blocheze un algoritm la timeout, dar minim un alt algoritm să dea soluție (de exemplu se blochează DF-ul dacă soluțiile sunt cât mai "în dreapta" în arborele de parcurgere)
 #dintre ultimele doua fisiere, cel putin un fisier sa dea drumul de cost minim pentru euristicile admisibile si un drum care nu e de cost minim pentru cea euristica neadmisibila
 
-
+# ceilalti 2 algoritmi
 
 
 import copy
@@ -14,7 +14,13 @@ import time
 
 # informatii despre un nod din arborele de parcurgere (nu din graful initial)
 class NodParcurgere:
+    nrOrdine=0
+    timp_inceput = 0
     def __init__(self,miscariFacute, info, listaPiese, parinte, stariIncercate, cost=0, h=0):
+        NodParcurgere.nrOrdine+=1
+        self.id = NodParcurgere.nrOrdine
+        self.durataCalcul = time.time()-NodParcurgere.timp_inceput
+        print(self.durataCalcul)
         self.miscariFacute = miscariFacute
         self.info = info
         self.listaPiese = listaPiese
@@ -61,8 +67,10 @@ class NodParcurgere:
 
     def __str__(self):
         out=""
+        out+="Nr de Ordine:"+str(self.id)+"\n"
+        out+="Timp Calcul:"+str(self.durataCalcul)+"\n"
         out+="Cost :"+str(self.g)+"\n"
-        out+="Numar stari incercate:"+str(len(self.stariIncercate))+"\n"
+        out+="Lungime drum:"+str(len(self.stariIncercate))+"\n"
         out+="Miscari incercate:\n" + self.miscariFacute +"\n"
         matriceOut=""
         for line in [''.join(x) for x in self.info]:
@@ -387,7 +395,7 @@ class Graph:  # graful problemei
                         for x in pozitii:
                             if (distanta > abs(i-x[0])+abs(j-x[1])):
                                 distanta = abs(i-x[0])+abs(j-x[1])
-            print(distanta)
+
             return distanta
         elif (tip_euristica == "euristica_admisibila_2"): # distanta fata de orice de pe border in afara de #
             pozitii = self.pozitii_dupa_piesa(infoNod,"*")
@@ -399,7 +407,7 @@ class Graph:  # graful problemei
                         for x in pozitii:
                             if (distanta > abs(i - x[0]) + abs(j - x[1])):
                                 distanta = abs(i - x[0]) + abs(j - x[1])
-            print(distanta)
+
             return distanta
         elif (tip_euristica == "euristica_neadmisibila"): # distanta maxima fata de orice de pe border in afara de #
             #luam cea mai indepartata gaura
@@ -412,7 +420,7 @@ class Graph:  # graful problemei
                         for x in pozitii:
                             if (distanta < abs(i - x[0]) + abs(j - x[1])):
                                 distanta = abs(i - x[0]) + abs(j - x[1])
-            print(distanta)
+
             return distanta
 
 
@@ -456,7 +464,7 @@ def uniform_cost(gr, nrSolutiiCautate=1):
             else:
                 c.append(s)
 
-def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala'):
+def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala',timp_inceput=time.time()):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
     c = [NodParcurgere("",gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
     out=""
@@ -493,15 +501,16 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     #print("\n\n##################\nSolutii obtinute cu UCS:")
     #out = uniform_cost(gr, nrSolutiiCautate=nSol)
     #print(time.time()-timp_inceput)
-
+    NodParcurgere.nrOrdine = 0
+    NodParcurgere.timp_inceput = time.time()
     timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
-    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_2")
+    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_1")
     timp_final = time.time()
     if (timp_final - timp_inceput > timpTimeout):
         print("TimeOut")
-
-    print(time.time() - timp_inceput)
+    else:
+        print("Timp executie "+str(timp_final - timp_inceput))
 
     if (out==None):
         f_write.write("No Solutions")
@@ -518,7 +527,7 @@ if __name__ == '__main__':
     caleFolderInput = "input"
     caleFolderOutput = "output"
     nSol = 1
-    timpTimeout = 20
+    timpTimeout = 0.05
     """
     print("Cale Folder input:")
     caleFolderInput = input()

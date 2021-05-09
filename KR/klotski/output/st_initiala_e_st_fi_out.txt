@@ -1,0 +1,13 @@
+Solutie: 
+Cost :0
+Numar stari incercate:1
+Miscari incercate:
+
+Matricea: 
+#.##
+#.a#
+#.a#
+####
+
+
+----------------

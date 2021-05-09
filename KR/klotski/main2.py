@@ -1,11 +1,15 @@
 
-# 2 euristici de gandit
-# 1 euristica inadmisibila de gandit
+# un fisier care dureaza prea mult pe un algoritm dar da bine pe altul
+
+#un fisier de input care să blocheze un algoritm la timeout, dar minim un alt algoritm să dea soluție (de exemplu se blochează DF-ul dacă soluțiile sunt cât mai "în dreapta" în arborele de parcurgere)
+#dintre ultimele doua fisiere, cel putin un fisier sa dea drumul de cost minim pentru euristicile admisibile si un drum care nu e de cost minim pentru cea euristica neadmisibila
+
 
 
 
 import copy
 import os
+import time
 
 
 # informatii despre un nod din arborele de parcurgere (nu din graful initial)
@@ -374,17 +378,43 @@ class Graph:  # graful problemei
                 return 0
             else:
                 return 1  # minimul dintre costurile tuturor arcelor
-        elif (tip_euristica=="euristica_admisibila_1"): # distanta piesei speciale de iesire (numar de mutari necesar pentru a iesi presupunand ca are free way)
+        elif (tip_euristica=="euristica_admisibila_1"): # distanta fata de un . de pe border
             pozitii = self.pozitii_dupa_piesa(infoNod,"*")
-            nrMiscariNecesare = 0
+            distanta = float ('inf')
             for i in range (len(infoNod)):
                 for j in range (len(infoNod[i])):
-                    if (i == 0 or i == len(infoNod)-1 or j==0 or j==len(infoNod[i])-1):
+                    if (i == 0 or i == len(infoNod)-1 or j==0 or j==len(infoNod[i])-1 )and (infoNod[i][j]=="."):
                         for x in pozitii:
-                            nrMiscariNecesare = max (nrMiscariNecesare,abs(i-x[0])+abs(j-x[1]))
-            return nrMiscariNecesare
-        elif (tip_euristica == "euristica_admisibila_2"):
-            return 0
+                            if (distanta > abs(i-x[0])+abs(j-x[1])):
+                                distanta = abs(i-x[0])+abs(j-x[1])
+            print(distanta)
+            return distanta
+        elif (tip_euristica == "euristica_admisibila_2"): # distanta fata de orice de pe border in afara de #
+            pozitii = self.pozitii_dupa_piesa(infoNod,"*")
+            distanta = float('inf')
+            for i in range(len(infoNod)):
+                for j in range(len(infoNod[i])):
+                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
+                            infoNod[i][j] != "#"):
+                        for x in pozitii:
+                            if (distanta > abs(i - x[0]) + abs(j - x[1])):
+                                distanta = abs(i - x[0]) + abs(j - x[1])
+            print(distanta)
+            return distanta
+        elif (tip_euristica == "euristica_neadmisibila"): # distanta maxima fata de orice de pe border in afara de #
+            #luam cea mai indepartata gaura
+            pozitii = self.pozitii_dupa_piesa(infoNod, "*")
+            distanta = 0
+            for i in range(len(infoNod)):
+                for j in range(len(infoNod[i])):
+                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
+                            infoNod[i][j] != "#"):
+                        for x in pozitii:
+                            if (distanta < abs(i - x[0]) + abs(j - x[1])):
+                                distanta = abs(i - x[0]) + abs(j - x[1])
+            print(distanta)
+            return distanta
+
 
 
 
@@ -459,12 +489,19 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
 
     f_write = open(caleFolderOutput,'w')
-
+    #timp_inceput = time.time()
     #print("\n\n##################\nSolutii obtinute cu UCS:")
-    #uniform_cost(gr, nrSolutiiCautate=nSol)
+    #out = uniform_cost(gr, nrSolutiiCautate=nSol)
+    #print(time.time()-timp_inceput)
 
+    timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
-    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_1")
+    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_2")
+    timp_final = time.time()
+    if (timp_final - timp_inceput > timpTimeout):
+        print("TimeOut")
+
+    print(time.time() - timp_inceput)
 
     if (out==None):
         f_write.write("No Solutions")

@@ -1,10 +1,11 @@
 
 # un fisier care dureaza prea mult pe un algoritm dar da bine pe altul
 
-#un fisier de input care să blocheze un algoritm la timeout, dar minim un alt algoritm să dea soluție (de exemplu se blochează DF-ul dacă soluțiile sunt cât mai "în dreapta" în arborele de parcurgere)
-#dintre ultimele doua fisiere, cel putin un fisier sa dea drumul de cost minim pentru euristicile admisibile si un drum care nu e de cost minim pentru cea euristica neadmisibila
 
 # ceilalti 2 algoritmi
+
+# fa fisierul sa dea minim pe euristica_admisibila_1
+# fisierul in nu da  solutia minima pe euristica neadmisibila
 
 
 import copy
@@ -20,7 +21,6 @@ class NodParcurgere:
         NodParcurgere.nrOrdine+=1
         self.id = NodParcurgere.nrOrdine
         self.durataCalcul = time.time()-NodParcurgere.timp_inceput
-        print(self.durataCalcul)
         self.miscariFacute = miscariFacute
         self.info = info
         self.listaPiese = listaPiese
@@ -67,10 +67,11 @@ class NodParcurgere:
 
     def __str__(self):
         out=""
+        out+="f :"+str(self.f)+"\n"
         out+="Nr de Ordine:"+str(self.id)+"\n"
         out+="Timp Calcul:"+str(self.durataCalcul)+"\n"
         out+="Cost :"+str(self.g)+"\n"
-        out+="Lungime drum:"+str(len(self.stariIncercate))+"\n"
+        out+="Lungime drum:"+str(len(self.stariIncercate)-1)+"\n"
         out+="Miscari incercate:\n" + self.miscariFacute +"\n"
         matriceOut=""
         for line in [''.join(x) for x in self.info]:
@@ -380,47 +381,59 @@ class Graph:  # graful problemei
         return listaSuccesori
 
     # euristica banala
-    def calculeaza_h(self, infoNod, tip_euristica="euristica banala"):
-        if tip_euristica == "euristica banala":
+    def calculeaza_h(self, infoNod, tip_euristica="euristica_banala"):
+        if tip_euristica == "euristica_banala":
             if self.testeaza_matrice(infoNod):
                 return 0
             else:
                 return 1  # minimul dintre costurile tuturor arcelor
         elif (tip_euristica=="euristica_admisibila_1"): # distanta fata de un . de pe border
-            pozitii = self.pozitii_dupa_piesa(infoNod,"*")
-            distanta = float ('inf')
-            for i in range (len(infoNod)):
-                for j in range (len(infoNod[i])):
-                    if (i == 0 or i == len(infoNod)-1 or j==0 or j==len(infoNod[i])-1 )and (infoNod[i][j]=="."):
-                        for x in pozitii:
-                            if (distanta > abs(i-x[0])+abs(j-x[1])):
-                                distanta = abs(i-x[0])+abs(j-x[1])
-
-            return distanta
+            if self.testeaza_matrice(infoNod):
+                return 0
+            else:
+                pozitii = self.pozitii_dupa_piesa(infoNod,"*")
+                distanta = float ('inf')
+                for i in range (len(infoNod)):
+                    for j in range (len(infoNod[i])):
+                        if (i == 0 or i == len(infoNod)-1 or j==0 or j==len(infoNod[i])-1 )and (infoNod[i][j]=="."):
+                            for x in pozitii:
+                                if (distanta > abs(i-x[0])+abs(j-x[1])):
+                                    distanta = abs(i-x[0])+abs(j-x[1])
+                if (distanta==float('inf')):
+                    self.afiseaza_matrice(infoNod)
+                return distanta
         elif (tip_euristica == "euristica_admisibila_2"): # distanta fata de orice de pe border in afara de #
-            pozitii = self.pozitii_dupa_piesa(infoNod,"*")
-            distanta = float('inf')
-            for i in range(len(infoNod)):
-                for j in range(len(infoNod[i])):
-                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-                            infoNod[i][j] != "#"):
-                        for x in pozitii:
-                            if (distanta > abs(i - x[0]) + abs(j - x[1])):
-                                distanta = abs(i - x[0]) + abs(j - x[1])
+            if self.testeaza_matrice(infoNod):
+                return 0
+            else:
+                pozitii = self.pozitii_dupa_piesa(infoNod,"*")
+                distanta = float('inf')
+                for i in range(len(infoNod)):
+                    for j in range(len(infoNod[i])):
+                        if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
+                                infoNod[i][j] != "#"):
+                            for x in pozitii:
+                                if (distanta > abs(i - x[0]) + abs(j - x[1])):
+                                    distanta = abs(i - x[0]) + abs(j - x[1])
 
-            return distanta
+                return distanta
         elif (tip_euristica == "euristica_neadmisibila"): # distanta maxima fata de orice de pe border in afara de #
             #luam cea mai indepartata gaura
+
+            # nu merge
+
+
             pozitii = self.pozitii_dupa_piesa(infoNod, "*")
             distanta = 0
             for i in range(len(infoNod)):
                 for j in range(len(infoNod[i])):
                     if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-                            infoNod[i][j] != "#"):
+                            infoNod[i][j] == "#"):
                         for x in pozitii:
                             if (distanta < abs(i - x[0]) + abs(j - x[1])):
                                 distanta = abs(i - x[0]) + abs(j - x[1])
-
+            if (infoNod[0]==['#','.','#','#','#']):
+                print(distanta)
             return distanta
 
 
@@ -491,6 +504,7 @@ def a_star(gr, nrSolutiiCautate, tip_euristica='euristica banala',timp_inceput=t
                 c.insert(i, s)
             else:
                 c.append(s)
+    return out
 
 
 def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
@@ -505,29 +519,24 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     NodParcurgere.timp_inceput = time.time()
     timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
-    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_1")
+    out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_2")
     timp_final = time.time()
     if (timp_final - timp_inceput > timpTimeout):
-        print("TimeOut")
+        f_write.write("Timeout")
     else:
-        print("Timp executie "+str(timp_final - timp_inceput))
+        if (out==None):
+            f_write.write("No Solutions")
+        else:
+            f_write.write(out)
 
-    if (out==None):
-        f_write.write("No Solutions")
-    else:
-        f_write.write(out)
-
-    input()
-
-    # a_star(gr, nrSolutiiCautate=3,tip_euristica="euristica admisibila 1")
 
 
 if __name__ == '__main__':
 
     caleFolderInput = "input"
     caleFolderOutput = "output"
-    nSol = 1
-    timpTimeout = 0.05
+    nSol = 2
+    timpTimeout = 20
     """
     print("Cale Folder input:")
     caleFolderInput = input()

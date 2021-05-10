@@ -4,7 +4,7 @@
 # fa fisierul sa dea minim pe euristica_admisibila_1
 # fisierul in nu da  solutia minima pe euristica neadmisibila
 
-# IDA NU MERGE
+# EURISTICA NEADMISIBILA IDEI
 
 import copy
 import os
@@ -92,7 +92,6 @@ class Graph:  # graful problemei
         self.toateStarileIncercate = []
 
         print("Stare Initiala:", self.start)
-        input()
 
     # testam daca matricea e solutie
     def testeaza_matrice(self, matrice):
@@ -248,7 +247,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi.append(copie_matrice_st)
 
                 if (copie_matrice_st not in nodCurent.stariIncercate) and (
-                        copie_matrice_st not in self.toateStarileIncercate):
+                        True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'stanga'),
                                       copie_matrice_st, self.lista_piese, nodCurent, stariIncercateNoi,
@@ -265,7 +264,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi.append(copie_matrice_jos)
 
                 if (
-                        copie_matrice_jos not in nodCurent.stariIncercate and copie_matrice_jos not in self.toateStarileIncercate):
+                        copie_matrice_jos not in nodCurent.stariIncercate and True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'jos'),
                                       copie_matrice_jos, self.lista_piese, nodCurent, stariIncercateNoi,
@@ -280,8 +279,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_sus)
 
-                if (copie_matrice_sus not in nodCurent.stariIncercate) and (
-                        copie_matrice_sus not in self.toateStarileIncercate):
+                if (copie_matrice_sus not in nodCurent.stariIncercate) and (True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'sus'),
                                       copie_matrice_sus, self.lista_piese, nodCurent, stariIncercateNoi,
@@ -296,8 +294,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_dr)
 
-                if (copie_matrice_dr not in nodCurent.stariIncercate) and (
-                        copie_matrice_dr not in self.toateStarileIncercate):
+                if (copie_matrice_dr not in nodCurent.stariIncercate) and (True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'dreapta'),
                                       copie_matrice_dr, self.lista_piese, nodCurent, stariIncercateNoi,
@@ -357,27 +354,28 @@ class Graph:  # graful problemei
 
             # nu merge
             #
+            pozitii = self.pozitii_dupa_piesa(infoNod, "*")
+            distanta = 0
+            for i in range(len(infoNod)):
+                for j in range(len(infoNod[i])):
+                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
+                            infoNod[i][j] == "#"):
+                        for x in pozitii:
+                            if (distanta < abs(i - x[0]) + abs(j - x[1])):
+                                distanta = abs(i - x[0]) + abs(j - x[1])
+            return distanta
+
             # pozitii = self.pozitii_dupa_piesa(infoNod, "*")
             # distanta = 0
             # for i in range(len(infoNod)):
             #     for j in range(len(infoNod[i])):
             #         if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-            #                 infoNod[i][j] == "#"):
+            #                 infoNod[i][j] =="#"):
             #             for x in pozitii:
             #                 if (distanta < abs(i - x[0]) + abs(j - x[1])):
             #                     distanta = abs(i - x[0]) + abs(j - x[1])
-            # admisibila 1 dar nu verifica daca e solutie
-            pozitii = self.pozitii_dupa_piesa(infoNod, "*")
-            distanta = float('inf')
-            for i in range(len(infoNod)):
-                for j in range(len(infoNod[i])):
-                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-                            infoNod[i][j] == "."):
-                        for x in pozitii:
-                            if (distanta > abs(i - x[0]) + abs(j - x[1])):
-                                distanta = abs(i - x[0]) + abs(j - x[1])
-
-            return distanta
+            #
+            # return distanta if distanta!=float('inf') else 0
 
     def __repr__(self):
         sir = ""
@@ -386,10 +384,10 @@ class Graph:  # graful problemei
         return (sir)
 
 
-def uniform_cost(gr, nrSolutiiCautate=1):
+def uniform_cost(gr, nrSolutiiCautate=1,tip_euristica='euristica_banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
     out = ""
-    c = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
+    c = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start,tip_euristica))]
 
     while len(c) > 0:
         nodCurent = c.pop(0)
@@ -401,7 +399,7 @@ def uniform_cost(gr, nrSolutiiCautate=1):
             if nrSolutiiCautate == 0:
                 return out
 
-        lSuccesori = gr.genereazaSuccesori(nodCurent)
+        lSuccesori = gr.genereazaSuccesori(nodCurent,tip_euristica)
 
         for s in lSuccesori:
             i = 0
@@ -419,7 +417,7 @@ def uniform_cost(gr, nrSolutiiCautate=1):
 
 def a_star(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
-    c = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
+    c = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start,tip_euristica))]
     out = ""
     while len(c) > 0:
         nodCurent = c.pop(0)
@@ -449,7 +447,7 @@ def a_star(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
 
 def a_star_open_closed(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
-    l_open = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))]
+    l_open = [NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start,tip_euristica))]
     out = ""
     # l_open contine nodurile candidate pentru expandare
 
@@ -504,47 +502,49 @@ def a_star_open_closed(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
 
 
 def ida_star(gr, nrSolutiiCautate,f_write, tip_euristica='euristica_banala'):
-    nodStart = NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start))
+    nodStart = NodParcurgere("", gr.start, gr.lista_piese, None, [gr.start], 0, gr.calculeaza_h(gr.start,tip_euristica))
     limita = nodStart.f
     while True:
 
-        f_write.write(("Limita de pornire: "+ str(limita)))
+        #f_write.write(("Limita de pornire: "+ str(limita))+"\n")
         nrSolutiiCautate, rez = construieste_drum(gr, nodStart, limita, nrSolutiiCautate,f_write,tip_euristica)
         if rez == "gata":
             break
         if rez == float('inf'):
-            f_write.write("Nu exista solutii!")
+            f_write.write("No Solutions")
             break
         limita = rez
-        f_write.write(">>> Limita noua: "+ str(limita))
-        input()
+        #f_write.write(">>> Limita noua: "+ str(limita)+"\n")
 
 
 def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate,f_write,tip_euristica):
-    f_write.write("A ajuns la: ")
-    f_write.write(nodCurent.__str__())
+    #f_write.write("A ajuns la: "+"\n")
+    #f_write.write(nodCurent.__str__())
     if nodCurent.f > limita:
         return nrSolutiiCautate, nodCurent.f
     if gr.testeaza_scop(nodCurent) and nodCurent.f == limita:
         print("SOLUTIE")
-        f_write.write("Solutie: ")
+        f_write.write("Solutie: \n")
         f_write.write(nodCurent.__str__())
         f_write.write(str(limita))
         f_write.write("\n----------------\n")
-        input()
+
         nrSolutiiCautate -= 1
         if nrSolutiiCautate == 0:
             return 0, "gata"
     lSuccesori = gr.genereazaSuccesori(nodCurent,tip_euristica)
     minim = float('inf')
+    if (len(lSuccesori)==0):
+        print("No succesori:")
+        print (nodCurent)
     for s in lSuccesori:
         nrSolutiiCautate, rez = construieste_drum(gr, s, limita, nrSolutiiCautate,f_write,tip_euristica)
         if rez == "gata":
             return 0, "gata"
-        f_write.write("Compara "+ str(rez)+ " cu "+ str(minim))
+        #f_write.write("Compara "+ str(rez)+ " cu "+ str(minim)+"\n")
         if rez < minim:
             minim = rez
-            f_write.write("Noul minim: "+ str(minim))
+            #f_write.write("Noul minim: "+ str(minim)+"\n")
     return nrSolutiiCautate, minim
 
 
@@ -554,15 +554,16 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     f_write = open(caleFolderOutput, 'w')
     # timp_inceput = time.time()
     # print("\n\n##################\nSolutii obtinute cu UCS:")
-    # out = uniform_cost(gr, nrSolutiiCautate=nSol)
+    #out = uniform_cost(gr, nrSolutiiCautate=nSol)
     # print(time.time()-timp_inceput)
     NodParcurgere.nrOrdine = 0
     NodParcurgere.timp_inceput = time.time()
     timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
-    # out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_1")
-    #out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_admisibila_1')
-    out = ida_star(gr, nSol,f_write, tip_euristica='euristica_banala')
+    #out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_neadmisibila")
+    #out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_neadmisibila')
+    # ruleaza la infinit pe euristica_neadmisibila
+    out = ida_star(gr, nSol,f_write, tip_euristica='euristica_neadmisibila')
 
     if (out!=None): #nu facem ida star
         timp_final = time.time()

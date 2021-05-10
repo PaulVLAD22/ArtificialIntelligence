@@ -1,100 +1,9 @@
-Limita de pornire: 1A ajuns la: f :1
-Nr de Ordine:1
-Timp Calcul:0.0
-Cost :0
-Lungime drum:0
-Miscari incercate:
-
-Matricea: 
-#b##
-#.*#
-#.a#
-####
-A ajuns la: f :2
-Nr de Ordine:2
-Timp Calcul:0.0
-Cost :1
-Lungime drum:1
-Miscari incercate:
-Am mutat b in jos
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-
-Matricea: 
-#.##
-#b*#
-#.a#
-####
-Compara 2 cu infNoul minim: 2A ajuns la: f :2
-Nr de Ordine:3
-Timp Calcul:0.0
-Cost :1
-Lungime drum:1
-Miscari incercate:
-Am mutat * in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-
-Matricea: 
-#b##
-#*.#
-#.a#
-####
-Compara 2 cu 2A ajuns la: f :2
-Nr de Ordine:4
-Timp Calcul:0.0
-Cost :1
-Lungime drum:1
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-
-Matricea: 
-#b##
-#.*#
-#a.#
-####
-Compara 2 cu 2>>> Limita noua: 2Limita de pornire: 2A ajuns la: f :1
-Nr de Ordine:1
-Timp Calcul:0.0
-Cost :0
-Lungime drum:0
-Miscari incercate:
-
-Matricea: 
-#b##
-#.*#
-#.a#
-####
-A ajuns la: f :2
-Nr de Ordine:5
-Timp Calcul:0.0010008811950683594
-Cost :1
-Lungime drum:1
-Miscari incercate:
-Am mutat b in jos
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-
-Matricea: 
-#.##
-#b*#
-#.a#
-####
-A ajuns la: f :3
-Nr de Ordine:8
-Timp Calcul:0.0010008811950683594
-Cost :2
-Lungime drum:2
+Solutie: 
+f :5
+Nr de Ordine:207
+Timp Calcul:0.07701992988586426
+Cost :5
+Lungime drum:5
 Miscari incercate:
 Am mutat b in jos
 # b # # 
@@ -106,232 +15,73 @@ Am mutat b in jos
 # b * # 
 # . a # 
 # # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
 
 Matricea: 
 #.##
-#.*#
+#..#
 #ba#
 ####
-Compara 3 cu infNoul minim: 3A ajuns la: f :3
-Nr de Ordine:9
-Timp Calcul:0.0010008811950683594
-Cost :2
-Lungime drum:2
+
+
+----------------
+Solutie: 
+f :6
+Nr de Ordine:210
+Timp Calcul:0.07801985740661621
+Cost :6
+Lungime drum:6
 Miscari incercate:
 Am mutat b in jos
 # b # # 
 # . * # 
 # . a # 
 # # # # 
-Am mutat a in stanga
+Am mutat b in jos
 # . # # 
 # b * # 
 # . a # 
 # # # # 
-
-Matricea: 
-#.##
-#b*#
-#a.#
-####
-Compara 3 cu 3Compara 3 cu infNoul minim: 3A ajuns la: f :2
-Nr de Ordine:6
-Timp Calcul:0.0010008811950683594
-Cost :1
-Lungime drum:1
-Miscari incercate:
 Am mutat * in stanga
-# b # # 
+# . # # 
 # . * # 
-# . a # 
+# b a # 
 # # # # 
-
-Matricea: 
-#b##
-#*.#
-#.a#
-####
-A ajuns la: f :3
-Nr de Ordine:10
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat * in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat * in jos
-# b # # 
+Am mutat * in sus
+# . # # 
 # * . # 
-# . a # 
+# b a # 
 # # # # 
-
-Matricea: 
-#b##
-#..#
-#*a#
-####
-Compara 3 cu infNoul minim: 3A ajuns la: f :3
-Nr de Ordine:11
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat * in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat a in stanga
-# b # # 
-# * . # 
-# . a # 
-# # # # 
-
-Matricea: 
-#b##
-#*.#
-#a.#
-####
-Compara 3 cu 3A ajuns la: f :3
-Nr de Ordine:12
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat * in stanga
-# b # # 
-# . * # 
-# . a # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
 # # # # 
 Am mutat a in sus
-# b # # 
-# * . # 
-# . a # 
-# # # # 
-
-Matricea: 
-#b##
-#*a#
-#..#
-####
-Compara 3 cu 3Compara 3 cu 3A ajuns la: f :2
-Nr de Ordine:7
-Timp Calcul:0.0010008811950683594
-Cost :1
-Lungime drum:1
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-
-Matricea: 
-#b##
-#.*#
-#a.#
-####
-A ajuns la: f :3
-Nr de Ordine:13
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat b in jos
-# b # # 
-# . * # 
-# a . # 
+# . # # 
+# . . # 
+# b a # 
 # # # # 
 
 Matricea: 
 #.##
-#b*#
-#a.#
-####
-Compara 3 cu infNoul minim: 3A ajuns la: f :3
-Nr de Ordine:14
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat * in stanga
-# b # # 
-# . * # 
-# a . # 
-# # # # 
-
-Matricea: 
-#b##
-#*.#
-#a.#
-####
-Compara 3 cu 3A ajuns la: f :3
-Nr de Ordine:15
-Timp Calcul:0.0020012855529785156
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat * in jos
-# b # # 
-# . * # 
-# a . # 
-# # # # 
-
-Matricea: 
-#b##
-#..#
-#a*#
-####
-Compara 3 cu 3A ajuns la: f :3
-Nr de Ordine:16
-Timp Calcul:0.0030012130737304688
-Cost :2
-Lungime drum:2
-Miscari incercate:
-Am mutat a in stanga
-# b # # 
-# . * # 
-# . a # 
-# # # # 
-Am mutat a in sus
-# b # # 
-# . * # 
-# a . # 
-# # # # 
-
-Matricea: 
-#b##
-#a*#
-#..#
-####
-Compara 3 cu 3Compara 3 cu 3>>> Limita noua: 3Limita de pornire: 3A ajuns la: f :1
-Nr de Ordine:1
-Timp Calcul:0.0
-Cost :0
-Lungime drum:0
-Miscari incercate:
-
-Matricea: 
-#b##
-#.*#
 #.a#
+#b.#
 ####
-Nu exista solutii!
+
+
+----------------

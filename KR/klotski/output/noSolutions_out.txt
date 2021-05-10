@@ -1,0 +1,13 @@
+Limita de pornire: 1A ajuns la: f :1
+Nr de Ordine:1
+Timp Calcul:0.0
+Cost :0
+Lungime drum:0
+Miscari incercate:
+
+Matricea: 
+####
+#ab#
+#*a#
+####
+Nu exista solutii!

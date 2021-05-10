@@ -1,9 +1,21 @@
-Solutie: 
-f :3
-Nr de Ordine:13
-Timp Calcul:0.004003286361694336
-Cost :3
-Lungime drum:3
+Limita de pornire: 1A ajuns la: f :1
+Nr de Ordine:1
+Timp Calcul:0.0
+Cost :0
+Lungime drum:0
+Miscari incercate:
+
+Matricea: 
+#.###
+#.*.#
+#.a.#
+#...#
+#.###
+A ajuns la: f :2
+Nr de Ordine:2
+Timp Calcul:0.0010001659393310547
+Cost :1
+Lungime drum:1
 Miscari incercate:
 Am mutat * in stanga
 # . # # # 
@@ -11,15 +23,136 @@ Am mutat * in stanga
 # . a . # 
 # . . . # 
 # . # # # 
-Am mutat * in sus
+
+Matricea: 
+#.###
+#*..#
+#.a.#
+#...#
+#.###
+Compara 2 cu infNoul minim: 2A ajuns la: f :2
+Nr de Ordine:3
+Timp Calcul:0.0010001659393310547
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat * in dreapta
 # . # # # 
-# * . . # 
+# . * . # 
 # . a . # 
 # . . . # 
 # . # # # 
-Am mutat * in sus
-# * # # # 
+
+Matricea: 
+#.###
+#..*#
+#.a.#
+#...#
+#.###
+Compara 2 cu 2A ajuns la: f :2
+Nr de Ordine:4
+Timp Calcul:0.0010001659393310547
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
 # . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#a..#
+#...#
+#.###
+Compara 2 cu 2A ajuns la: f :2
+Nr de Ordine:5
+Timp Calcul:0.0010001659393310547
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#.a.#
+#.###
+Compara 2 cu 2A ajuns la: f :2
+Nr de Ordine:6
+Timp Calcul:0.0010001659393310547
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#..a#
+#...#
+#.###
+Compara 2 cu 2>>> Limita noua: 2Limita de pornire: 2A ajuns la: f :1
+Nr de Ordine:1
+Timp Calcul:0.0
+Cost :0
+Lungime drum:0
+Miscari incercate:
+
+Matricea: 
+#.###
+#.*.#
+#.a.#
+#...#
+#.###
+A ajuns la: f :2
+Nr de Ordine:7
+Timp Calcul:0.21611905097961426
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#.a.#
+#...#
+#.###
+A ajuns la: f :3
+Nr de Ordine:12
+Timp Calcul:0.21711969375610352
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in jos
+# . # # # 
+# * . . # 
 # . a . # 
 # . . . # 
 # . # # # 
@@ -27,18 +160,14 @@ Am mutat * in sus
 Matricea: 
 #.###
 #...#
-#.a.#
+#*a.#
 #...#
 #.###
-
-
-----------------
-Solutie: 
-f :4
-Nr de Ordine:37
-Timp Calcul:0.013015985488891602
-Cost :4
-Lungime drum:4
+Compara 3 cu infNoul minim: 3A ajuns la: f :3
+Nr de Ordine:13
+Timp Calcul:0.21711969375610352
+Cost :2
+Lungime drum:2
 Miscari incercate:
 Am mutat * in stanga
 # . # # # 
@@ -52,15 +181,147 @@ Am mutat * in sus
 # . a . # 
 # . . . # 
 # . # # # 
-Am mutat * in sus
-# * # # # 
+
+Matricea: 
+#*###
+#...#
+#.a.#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:14
+Timp Calcul:0.21711969375610352
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . a . # 
 # . . . # 
+# . # # # 
+Am mutat a in stanga
+# . # # # 
+# * . . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#a..#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:15
+Timp Calcul:0.21711969375610352
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in jos
+# . # # # 
+# * . . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#...#
+#.a.#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:16
+Timp Calcul:0.21711969375610352
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in sus
+# . # # # 
+# * . . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*a.#
+#...#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:17
+Timp Calcul:0.21811962127685547
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in stanga
+# . # # # 
+# . * . # 
 # . a . # 
 # . . . # 
 # . # # # 
 Am mutat a in dreapta
 # . # # # 
+# * . . # 
+# . a . # 
 # . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#..a#
+#...#
+#.###
+Compara 3 cu 3Compara 3 cu infNoul minim: 3A ajuns la: f :2
+Nr de Ordine:8
+Timp Calcul:0.21611905097961426
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#.a.#
+#...#
+#.###
+A ajuns la: f :3
+Nr de Ordine:18
+Timp Calcul:0.21811962127685547
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in jos
+# . # # # 
+# . . * # 
 # . a . # 
 # . . . # 
 # . # # # 
@@ -68,9 +329,552 @@ Am mutat a in dreapta
 Matricea: 
 #.###
 #...#
+#.a*#
+#...#
+#.###
+Compara 3 cu infNoul minim: 3A ajuns la: f :3
+Nr de Ordine:19
+Timp Calcul:0.21811962127685547
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in stanga
+# . # # # 
+# . . * # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#a..#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:20
+Timp Calcul:0.21811962127685547
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in jos
+# . # # # 
+# . . * # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#...#
+#.a.#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:21
+Timp Calcul:0.21912002563476562
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in sus
+# . # # # 
+# . . * # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.a*#
+#...#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:22
+Timp Calcul:0.21912002563476562
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in dreapta
+# . # # # 
+# . . * # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
 #..a#
 #...#
 #.###
+Compara 3 cu 3Compara 3 cu 3A ajuns la: f :2
+Nr de Ordine:9
+Timp Calcul:0.21611905097961426
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
 
+Matricea: 
+#.###
+#.*.#
+#a..#
+#...#
+#.###
+A ajuns la: f :3
+Nr de Ordine:23
+Timp Calcul:0.21912002563476562
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# a . . # 
+# . . . # 
+# . # # # 
 
-----------------
+Matricea: 
+#.###
+#*..#
+#a..#
+#...#
+#.###
+Compara 3 cu infNoul minim: 3A ajuns la: f :3
+Nr de Ordine:24
+Timp Calcul:0.21912002563476562
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in jos
+# . # # # 
+# . * . # 
+# a . . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#...#
+#a*.#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:25
+Timp Calcul:0.22012042999267578
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# a . . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#a..#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:26
+Timp Calcul:0.22012042999267578
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# a . . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#a..#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:27
+Timp Calcul:0.22012042999267578
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in sus
+# . # # # 
+# . * . # 
+# a . . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#a*.#
+#...#
+#...#
+#.###
+Compara 3 cu 3Compara 3 cu 3A ajuns la: f :2
+Nr de Ordine:10
+Timp Calcul:0.21611905097961426
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#.a.#
+#.###
+A ajuns la: f :3
+Nr de Ordine:28
+Timp Calcul:0.22012042999267578
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . . . # 
+# . a . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#...#
+#.a.#
+#.###
+Compara 3 cu infNoul minim: 3A ajuns la: f :3
+Nr de Ordine:29
+Timp Calcul:0.22012042999267578
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in jos
+# . # # # 
+# . * . # 
+# . . . # 
+# . a . # 
+# . # # # 
+
+Matricea: 
+#.###
+#...#
+#.*.#
+#.a.#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:30
+Timp Calcul:0.22113704681396484
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . . . # 
+# . a . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#...#
+#.a.#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:31
+Timp Calcul:0.22113704681396484
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in stanga
+# . # # # 
+# . * . # 
+# . . . # 
+# . a . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#a..#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:32
+Timp Calcul:0.22113704681396484
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . . . # 
+# . a . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#..a#
+#.###
+Compara 3 cu 3Compara 3 cu 3A ajuns la: f :2
+Nr de Ordine:11
+Timp Calcul:0.21611905097961426
+Cost :1
+Lungime drum:1
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#..a#
+#...#
+#.###
+A ajuns la: f :3
+Nr de Ordine:33
+Timp Calcul:0.22113704681396484
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in stanga
+# . # # # 
+# . * . # 
+# . . a # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#*..#
+#..a#
+#...#
+#.###
+Compara 3 cu infNoul minim: 3A ajuns la: f :3
+Nr de Ordine:34
+Timp Calcul:0.222137451171875
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in jos
+# . # # # 
+# . * . # 
+# . . a # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#...#
+#.*a#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:35
+Timp Calcul:0.222137451171875
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat * in dreapta
+# . # # # 
+# . * . # 
+# . . a # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#..*#
+#..a#
+#...#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:36
+Timp Calcul:0.222137451171875
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in jos
+# . # # # 
+# . * . # 
+# . . a # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*.#
+#...#
+#..a#
+#.###
+Compara 3 cu 3A ajuns la: f :3
+Nr de Ordine:37
+Timp Calcul:0.222137451171875
+Cost :2
+Lungime drum:2
+Miscari incercate:
+Am mutat a in dreapta
+# . # # # 
+# . * . # 
+# . a . # 
+# . . . # 
+# . # # # 
+Am mutat a in sus
+# . # # # 
+# . * . # 
+# . . a # 
+# . . . # 
+# . # # # 
+
+Matricea: 
+#.###
+#.*a#
+#...#
+#...#
+#.###
+Compara 3 cu 3Compara 3 cu 3>>> Limita noua: 3Limita de pornire: 3A ajuns la: f :1
+Nr de Ordine:1
+Timp Calcul:0.0
+Cost :0
+Lungime drum:0
+Miscari incercate:
+
+Matricea: 
+#.###
+#.*.#
+#.a.#
+#...#
+#.###
+Nu exista solutii!

@@ -1,5 +1,5 @@
 # un fisier care dureaza prea mult pe un algoritm dar da bine pe altul
-
+import sys
 
 # fa fisierul sa dea minim pe euristica_admisibila_1
 # fisierul in nu da  solutia minima pe euristica neadmisibila
@@ -548,7 +548,7 @@ def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate,f_write,tip_eurist
     return nrSolutiiCautate, minim
 
 
-def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
+def mainP(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
 
     f_write = open(caleFolderOutput, 'w')
@@ -561,12 +561,13 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
     #out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_2")
-    #out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_admisibila_2')
+    out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_admisibila_2')
     # ruleaza la infinit pe euristica_neadmisibila
-    out = ida_star(gr, nSol,f_write, tip_euristica='euristica_admisibila_1')
+    #out = ida_star(gr, nSol,f_write, tip_euristica='euristica_neadmisibila')
 
     if (out!=None): #nu facem ida star
         timp_final = time.time()
+        print(timp_final-timp_inceput)
         if (timp_final - timp_inceput > timpTimeout):
             f_write.write("Timeout")
         else:
@@ -574,14 +575,22 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
                 f_write.write("No Solutions")
             else:
                 f_write.write(out)
+    else:
+        timp_final = time.time()
+        if (timp_final - timp_inceput > timpTimeout):
+            f_write.truncate(0)
+            f_write.write("Timeout")
 
+def cheamaMain(inputFolder,outputFolder,nSolutii,timpTime):
 
-if __name__ == '__main__':
-
+    #caleFolderInput = inputFolder
     caleFolderInput = "input"
+    #caleFolderOutput = outputFolder
     caleFolderOutput = "output"
+    #nSol = int(nSolutii)
     nSol = 2
-    timpTimeout = 20
+    #timpTimeout = float(timpTime)
+    timpTimeout = 20  # 0.035 ar trb sa mearga a_star dar nu a_star_open_closed / ida_star
     """
     print("Cale Folder input:")
     caleFolderInput = input()
@@ -594,5 +603,13 @@ if __name__ == '__main__':
     """
 
     for inputFilePath in os.listdir(caleFolderInput + "/"):
-        main(caleFolderInput + "/" + inputFilePath,
+        mainP(caleFolderInput + "/" + inputFilePath,
              caleFolderOutput + "/" + inputFilePath[0:len(inputFilePath) - 4] + "_out.txt", nSol, timpTimeout)
+
+
+if __name__ == '__main__':
+    #python main2.py input output 2 20
+    #python main2.py input output 3 0.035
+
+
+    cheamaMain(*sys.argv[1:])

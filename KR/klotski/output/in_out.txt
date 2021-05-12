@@ -1,7 +1,7 @@
 Solutie: 
 f :5
-Nr de Ordine:62
-Timp Calcul:0.015624761581420898
+Nr de Ordine:20
+Timp Calcul:0.006001710891723633
 Cost :5
 Lungime drum:5
 Miscari incercate:
@@ -36,12 +36,13 @@ Matricea:
 #..#
 #ba#
 ####
-5
+
+
 ----------------
 Solutie: 
 f :6
-Nr de Ordine:134
-Timp Calcul:0.0312504768371582
+Nr de Ordine:32
+Timp Calcul:0.011002540588378906
 Cost :6
 Lungime drum:6
 Miscari incercate:
@@ -65,15 +66,15 @@ Am mutat * in sus
 # * . # 
 # b a # 
 # # # # 
-Am mutat b in sus
+Am mutat * in sus
 # * # # 
 # . . # 
 # b a # 
 # # # # 
-Am mutat * in sus
-# * # # 
-# b . # 
-# . a # 
+Am mutat b in sus
+# . # # 
+# . . # 
+# b a # 
 # # # # 
 
 Matricea: 
@@ -81,5 +82,6 @@ Matricea:
 #b.#
 #.a#
 ####
-6
+
+
 ----------------

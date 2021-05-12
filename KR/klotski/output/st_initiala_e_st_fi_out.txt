@@ -1,7 +1,7 @@
 Solutie: 
 f :0
 Nr de Ordine:1
-Timp Calcul:0.0
+Timp Calcul:0.0010001659393310547
 Cost :0
 Lungime drum:0
 Miscari incercate:
@@ -11,12 +11,13 @@ Matricea:
 #.a#
 #.a#
 ####
-0
+
+
 ----------------
 Solutie: 
 f :2
-Nr de Ordine:3
-Timp Calcul:0.0
+Nr de Ordine:2
+Timp Calcul:0.0010001659393310547
 Cost :2
 Lungime drum:1
 Miscari incercate:
@@ -31,5 +32,6 @@ Matricea:
 #a.#
 #a.#
 ####
-2
+
+
 ----------------

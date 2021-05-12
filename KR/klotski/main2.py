@@ -560,10 +560,10 @@ def main(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     NodParcurgere.timp_inceput = time.time()
     timp_inceput = time.time()
     print("\n\n##################\nSolutii obtinute cu A*:")
-    #out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_neadmisibila")
-    #out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_neadmisibila')
+    #out = a_star(gr, nrSolutiiCautate=nSol,tip_euristica="euristica_admisibila_2")
+    #out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_admisibila_2')
     # ruleaza la infinit pe euristica_neadmisibila
-    out = ida_star(gr, nSol,f_write, tip_euristica='euristica_neadmisibila')
+    out = ida_star(gr, nSol,f_write, tip_euristica='euristica_admisibila_1')
 
     if (out!=None): #nu facem ida star
         timp_final = time.time()

@@ -91,6 +91,7 @@ class Graph:  # graful problemei
         self.lista_piese = lista_piese
         self.toateStarileIncercate = []
 
+
         print("Stare Initiala:", self.start)
 
     # testam daca matricea e solutie
@@ -564,7 +565,8 @@ def mainP(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica='euristica_admisibila_2')
     # ruleaza la infinit pe euristica_neadmisibila
     #out = ida_star(gr, nSol,f_write, tip_euristica='euristica_neadmisibila')
-
+    print(len(gr.toateStarileIncercate))
+    f_write.write("Numar noduri totale generate : "+str(len(gr.toateStarileIncercate))+"\n")
     if (out!=None): #nu facem ida star
         timp_final = time.time()
         print(timp_final-timp_inceput)
@@ -612,4 +614,5 @@ if __name__ == '__main__':
     #python main2.py input output 3 0.035
 
 
-    cheamaMain(*sys.argv[1:])
+    #cheamaMain(*sys.argv[1:])
+    cheamaMain(0,0,0,0)

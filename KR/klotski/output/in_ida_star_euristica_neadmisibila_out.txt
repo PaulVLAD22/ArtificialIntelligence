@@ -1,0 +1,120 @@
+Solutie: 
+f :9
+Nr de Ordine:220
+Timp Calcul:0.045989274978637695
+Cost :9
+Lungime drum:9
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat b in sus
+# . # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat b in sus
+# . # # 
+# b . # 
+# . a # 
+# # # # 
+Am mutat a in stanga
+# b # # 
+# . . # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# b # # 
+# . . # 
+# a . # 
+# # # # 
+
+Matricea: 
+#.##
+#b.#
+#a.#
+####
+9
+----------------
+Solutie: 
+f :9
+Nr de Ordine:221
+Timp Calcul:0.046991586685180664
+Cost :9
+Lungime drum:9
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat b in sus
+# . # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat b in sus
+# . # # 
+# b . # 
+# . a # 
+# # # # 
+Am mutat a in stanga
+# b # # 
+# . . # 
+# . a # 
+# # # # 
+Am mutat a in sus
+# b # # 
+# . . # 
+# a . # 
+# # # # 
+
+Matricea: 
+#b##
+#a.#
+#..#
+####
+9
+----------------

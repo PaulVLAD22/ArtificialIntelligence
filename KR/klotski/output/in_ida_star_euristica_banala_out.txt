@@ -1,0 +1,85 @@
+Solutie: 
+f :5
+Nr de Ordine:109
+Timp Calcul:0.01799941062927246
+Cost :5
+Lungime drum:5
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
+
+Matricea: 
+#.##
+#..#
+#ba#
+####
+5
+----------------
+Solutie: 
+f :6
+Nr de Ordine:218
+Timp Calcul:0.04500579833984375
+Cost :6
+Lungime drum:6
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat b in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# b . # 
+# . a # 
+# # # # 
+
+Matricea: 
+#.##
+#b.#
+#.a#
+####
+6
+----------------

@@ -1,4 +1,3 @@
-Numar noduri totale generate : 1
 Solutie: 
 f :0
 Nr de Ordine:1
@@ -12,12 +11,11 @@ Matricea:
 #.a#
 #.a#
 ####
-
-
+0
 ----------------
 Solutie: 
 f :2
-Nr de Ordine:2
+Nr de Ordine:3
 Timp Calcul:0.0
 Cost :2
 Lungime drum:1
@@ -33,6 +31,5 @@ Matricea:
 #a.#
 #a.#
 ####
-
-
+2
 ----------------

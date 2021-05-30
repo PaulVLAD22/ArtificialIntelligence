@@ -1,2 +1,2 @@
 No Solutions
-Numar noduri totale generate : 12
+Numar noduri totale generate : 16

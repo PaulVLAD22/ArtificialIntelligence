@@ -36,4 +36,4 @@ Matricea:
 
 ----------------
 
-Numar noduri totale generate : 5
+Numar noduri totale generate : 9

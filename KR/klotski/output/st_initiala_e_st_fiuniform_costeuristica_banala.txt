@@ -1,5 +1,5 @@
 Solutie: 
-f :4
+f :0
 Nr de Ordine:1
 Timp Calcul:0.0
 Cost :0
@@ -15,7 +15,7 @@ Matricea:
 
 ----------------
 Solutie: 
-f :6
+f :2
 Nr de Ordine:2
 Timp Calcul:0.0
 Cost :2
@@ -36,4 +36,4 @@ Matricea:
 
 ----------------
 
-Numar noduri totale generate : 7
+Numar noduri totale generate : 4

@@ -47,11 +47,7 @@ class NodParcurgere:
 
         return False
 
-    def __repr__(self):
-        sir = ""
-        sir += str(self.info)
-        return (sir)
-
+    #afisare custom
     def __str__(self):
         out = ""
         out += "f :" + str(self.f) + "\n"
@@ -71,23 +67,27 @@ class Graph:  # graful problemei
     def __init__(self, nume_fisier):
 
         f_open = open(nume_fisier, 'r')
-
-        line = f_open.readline()
-        matrice = []
-        lista_piese = []
-        while (line):
-            linie_matrice = []
-            line = line.replace("\n", '')
-            for ch in line:
-                linie_matrice.append(ch)
-                if (ch not in ["#", "."] and ch not in lista_piese):
-                    lista_piese.append(ch)
-            matrice.append(linie_matrice)
+        #verificare input
+        try:
             line = f_open.readline()
+            matrice = []
+            lista_piese = []
+            while (line):
+                linie_matrice = []
+                line = line.replace("\n", '')
+                for ch in line:
+                    linie_matrice.append(ch)
+                    if (ch not in ["#", "."] and ch not in lista_piese):
+                        lista_piese.append(ch)
+                matrice.append(linie_matrice)
+                line = f_open.readline()
 
-        self.start = matrice
-        self.lista_piese = lista_piese
-        self.toateStarileIncercate = []
+            self.start = matrice
+            self.lista_piese = lista_piese
+            self.toateStarileIncercate = []
+        except:
+            print("Input Gresit")
+            SystemExit
 
         print("Stare Initiala:", self.start)
 
@@ -98,10 +98,11 @@ class Graph:  # graful problemei
                 if (matrice[i][j] == "*"):
                     return 0
         return 1
-
+    #verificarea solutie
     def testeaza_scop(self, nodCurent):
         return self.testeaza_matrice(nodCurent.info)
 
+    #functii pentru a determina unde putem muta o piesa ( daca intr-o anumita directie este spatiu gol)
     def mutare_stanga_valida(self, matrice, pozitii, piesa):
         if (piesa != "*"):
             for i, j in pozitii:
@@ -165,6 +166,7 @@ class Graph:  # graful problemei
             out += "\n"
         return out
 
+    # functie care gaseste pozitiile unei piese
     def pozitii_dupa_piesa(self, matrice, piesa):
         pozitii = []
         for i in range(len(matrice)):
@@ -173,6 +175,7 @@ class Graph:  # graful problemei
                     pozitii.append([i, j])
         return pozitii
 
+    # functie care executa mutarea pe matrice
     def mutare(self, matrice, pozitii, directie='stanga'):
         if (directie == 'stanga'):
             for i, j in pozitii:
@@ -221,10 +224,6 @@ class Graph:  # graful problemei
     # va genera succesorii sub forma de noduri in arborele de parcurgere
     def genereazaSuccesori(self, nodCurent, tip_euristica="euristica banala"):
         self.toateStarileIncercate.append(nodCurent.info)
-        # if (len(self.toateStarileIncercate )==2):
-        #   self.afiseaza_matrice(nodCurent.info)
-
-        # print (nodCurent.info in self.toateStarileIncercate)
 
         listaSuccesori = []
         copie_matrice = copy.deepcopy(nodCurent.info)
@@ -242,7 +241,7 @@ class Graph:  # graful problemei
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
 
                 stariIncercateNoi.append(copie_matrice_st)
-
+                # verificare sa nu repetam nod pe aceiasi ramura
                 if (copie_matrice_st not in nodCurent.stariIncercate) and (
                         True):
                     listaSuccesori.append(
@@ -256,10 +255,9 @@ class Graph:  # graful problemei
                 copie_matrice_jos = copy.deepcopy(copie_matrice)
                 self.mutare(copie_matrice_jos, pozitii, 'jos')
 
-                # print(nodCurent.stariIncercate.append(copie_matrice_jos))
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_jos)
-
+                #verificare sa nu repetam nod pe aceiasi ramura
                 if (copie_matrice_jos not in nodCurent.stariIncercate and True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'jos'),
@@ -274,7 +272,7 @@ class Graph:  # graful problemei
 
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_sus)
-
+                # verificare sa nu repetam nod pe aceiasi ramura
                 if (copie_matrice_sus not in nodCurent.stariIncercate) and (True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'sus'),
@@ -289,7 +287,7 @@ class Graph:  # graful problemei
 
                 stariIncercateNoi = copy.deepcopy(nodCurent.stariIncercate)
                 stariIncercateNoi.append(copie_matrice_dr)
-
+                # verificare sa nu repetam nod pe aceiasi ramura
                 if (copie_matrice_dr not in nodCurent.stariIncercate) and (True):
                     listaSuccesori.append(
                         NodParcurgere(nodCurent.miscariFacute + self.matrice_to_string(copie_matrice, piesa, 'dreapta'),
@@ -306,24 +304,22 @@ class Graph:  # graful problemei
                 return 0
             else:
                 return 1  # minimul dintre costurile tuturor arcelor
-        elif (tip_euristica == "euristica_admisibila_1"):  # distanta fata de un . de pe border
-
-            # distanta maxima pana la un element de pe border ce nu e #
+        elif (tip_euristica == "euristica_admisibila_1"):  # distanta minima fata de un . sau # de pe margine
             if self.testeaza_matrice(infoNod):
                 return 0
             else:
                 pozitii = self.pozitii_dupa_piesa(infoNod, "*")
-                distanta = 0
+                distanta = float ('inf')
                 for i in range(len(infoNod)):
                     for j in range(len(infoNod[i])):
                         if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-                                infoNod[i][j] != "#"):
+                                infoNod[i][j] == "#" or infoNod[i][j]=="."):
                             for x in pozitii:
-                                if (distanta < abs(i - x[0]) + abs(j - x[1])):
+                                if (distanta > abs(i - x[0]) + abs(j - x[1])):
                                     distanta = abs(i - x[0]) + abs(j - x[1])
 
                 return distanta
-        elif (tip_euristica == "euristica_admisibila_2"):  # distanta fata de orice de pe border in afara de #
+        elif (tip_euristica == "euristica_admisibila_2"):  # distanta minima fata de orice de pe border in afara de #
             if self.testeaza_matrice(infoNod):
                 return 0
             else:
@@ -338,11 +334,7 @@ class Graph:  # graful problemei
                                     distanta = abs(i - x[0]) + abs(j - x[1])
 
                 return distanta
-        elif (tip_euristica == "euristica_neadmisibila"):  # distanta maxima fata de orice de pe border in afara de #
-            # luam cea mai indepartata gaura
-
-            # nu merge
-            #
+        elif (tip_euristica == "euristica_neadmisibila"):  # distanta maxima fata de un #
 
             pozitii = self.pozitii_dupa_piesa(infoNod, "*")
             distanta = 0
@@ -353,26 +345,7 @@ class Graph:  # graful problemei
                         for x in pozitii:
                             if (distanta < abs(i - x[0]) + abs(j - x[1])):
                                 distanta = abs(i - x[0]) + abs(j - x[1])
-            return len(infoNod) - distanta
-
-            # pozitii = self.pozitii_dupa_piesa(infoNod, "*")
-            # distanta = 0
-            # for i in range(len(infoNod)):
-            #     for j in range(len(infoNod[i])):
-            #         if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-            #                 infoNod[i][j] =="#"):
-            #             for x in pozitii:
-            #                 if (distanta < abs(i - x[0]) + abs(j - x[1])):
-            #                     distanta = abs(i - x[0]) + abs(j - x[1])
-            #
-            # return distanta if distanta!=float('inf') else 0
-
-    def __repr__(self):
-        sir = ""
-        for (k, v) in self.__dict__.items():
-            sir += "{} = {}\n".format(k, v)
-        return (sir)
-
+            return len(infoNod)-distanta
 
 def uniform_cost(gr, nrSolutiiCautate=1, tip_euristica='euristica_banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
@@ -544,10 +517,8 @@ def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate, f_write, tip_euri
 def mainP(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
     gr = Graph(caleFiserInput)
 
-
-
     out = ""
-    for algoritm in ["a_star", "a_star_open_closed", "ida_star"]:
+    for algoritm in ["uniform_cost","a_star", "a_star_open_closed", "ida_star"]:
         for euristica in ["euristica_admisibila_1", "euristica_admisibila_2", "euristica_neadmisibila",
                           "euristica_banala"]:
             NodParcurgere.nrOrdine = 0
@@ -558,8 +529,10 @@ def mainP(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
                 out = a_star(gr, nrSolutiiCautate=nSol, tip_euristica=euristica)
             elif (algoritm == "a_star_open_closed"):
                 out = a_star_open_closed(gr, nrSolutiiCautate=nSol, tip_euristica=euristica)
-            else:
+            elif(algoritm == "ida_star"):
                 out = ida_star(gr, nSol, f_write, tip_euristica=euristica)
+            else:
+                out = uniform_cost(gr,nSol,euristica)
 
             if (out != None):  # nu facem ida star
                 timp_final = time.time()
@@ -581,14 +554,14 @@ def mainP(caleFiserInput, caleFolderOutput, nSol, timpTimeout):
 
 
 def cheamaMain(inputFolder, outputFolder, nSolutii, timpTime):
-    caleFolderInput = inputFolder
-    #caleFolderInput = "input"
-    caleFolderOutput = outputFolder
-    #caleFolderOutput = "output"
-    nSol = int(nSolutii)
-    #nSol = 2
-    timpTimeout = float(timpTime)
-    #timpTimeout = 1 # 0.035 ar trb sa mearga a_star dar nu a_star_open_closed / ida_star
+    #caleFolderInput = inputFolder
+    caleFolderInput = "input"
+    #caleFolderOutput = outputFolder
+    caleFolderOutput = "output"
+    #nSol = int(nSolutii)
+    nSol = 2
+    #timpTimeout = float(timpTime)
+    timpTimeout = 1 # 0.035 ar trb sa mearga a_star dar nu a_star_open_closed / ida_star
 
     for inputFilePath in os.listdir(caleFolderInput + "/"):
         mainP(caleFolderInput + "/" + inputFilePath,
@@ -599,5 +572,5 @@ if __name__ == '__main__':
     # python main2.py input output 2 20
     # python main2.py input output 3 0.035
 
-    cheamaMain(*sys.argv[1:])
-    #cheamaMain(0, 0, 0, 0)
+    #cheamaMain(*sys.argv[1:])
+    cheamaMain(0, 0, 0, 0)

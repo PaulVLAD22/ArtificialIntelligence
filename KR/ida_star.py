@@ -96,8 +96,6 @@ class Graph:  # graful problemei
 noduri = ["a", "b", "c", "d", "e", "f", "g"]
 
 m = []
-
-
 mp = [
     [0, 10, 0, 0, 0, 0, 5],
     [7, 0, 3, 4, 0, 0, 0],
@@ -106,7 +104,6 @@ mp = [
     [0, 0, 0, 0, 0, 7,3],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 9, 0, 0, 20, 0]]
-
 start = "a"
 scopuri = ["f"]
 # exemplu de euristica banala (1 daca nu e nod scop si 0 daca este)
@@ -116,62 +113,47 @@ gr = Graph(noduri, m, mp, start, scopuri, vect_h)
 NodParcurgere.graf = gr;
 
 
-def a_star(gr):
-    # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
-    l_open = [NodParcurgere(gr.noduri.index(gr.start), gr.start, None, 0, gr.calculeaza_h(gr.start))]
+def ida_star(gr, nrSolutiiCautate):
+    nodStart = NodParcurgere(gr.indiceNod(gr.start), gr.start, None, 0, gr.calculeaza_h(gr.start))
+    limita = nodStart.f
+    while True:
 
-    # l_open contine nodurile candidate pentru expandare
-    n=1
-    # l_closed contine nodurile expandate
-    l_closed = []
-    while len(l_open) > 0:
-        print("Pas "+str(n))
-        n+=1
-        print("Coada actuala: " + str(l_open))
-        print("Coada inchisa: "+str(l_closed))
+        print("Limita de pornire: ", limita)
+        nrSolutiiCautate, rez = construieste_drum(gr, nodStart, limita, nrSolutiiCautate)
+        if rez == "gata":
+            break
+        if rez == float('inf'):
+            print("Nu exista solutii!")
+            break
+        limita = rez
+        print(">>> Limita noua: ", limita)
         input()
-        nodCurent = l_open.pop(0)
-        l_closed.append(nodCurent)
-        if gr.testeaza_scop(nodCurent):
-            print("Solutie: ", end="")
-            nodCurent.afisDrum()
-            print("\n----------------\n")
-            return
-        print("S-a extins " +nodCurent.info)
-        lSuccesori = gr.genereazaSuccesori(nodCurent)
-        for s in lSuccesori:
-            gasitC = False
-            for nodC in l_open:
-                if s.info == nodC.info:
-                    gasitC = True
-                    if s.f >= nodC.f:
-                        print("nodul vechi "+nodC.info+" nu a fost inlocuit")
-                        lSuccesori.remove(s)
-                    else:  # s.f<nodC.f
-                        print("nodul vechi " + nodC.info + " a fost inlocuit de unul cu cost mai mic")
-                        l_open.remove(nodC)
-                    break
-            if not gasitC:
-                for nodC in l_closed:
-                    if s.info == nodC.info:
-                        if s.f >= nodC.f:
-                            lSuccesori.remove(s)
-                        else:  # s.f<nodC.f
-                            print("Nodul "+nodC.info +" a fost inlocuit de " + s.__repr__())
-                            l_closed.remove(nodC)
-                        break
-        for s in lSuccesori:
-            i = 0
-            gasit_loc = False
-            for i in range(len(l_open)):
-                # diferenta fata de UCS e ca ordonez crescator dupa f
-                # daca f-urile sunt egale ordonez descrescator dupa g
-                if l_open[i].f > s.f or (l_open[i].f == s.f and l_open[i].g <= s.g):
-                    gasit_loc = True
-                    break
-            if gasit_loc:
-                l_open.insert(i, s)
-            else:
-                l_open.append(s)
 
-a_star(gr)
+
+def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate):
+    print("A ajuns la: ", nodCurent)
+    if nodCurent.f > limita:
+        return nrSolutiiCautate, nodCurent.f
+    if gr.testeaza_scop(nodCurent) and nodCurent.f == limita:
+        print("Solutie: ")
+        nodCurent.afisDrum()
+        print(limita)
+        print("\n----------------\n")
+        input()
+        nrSolutiiCautate -= 1
+        if nrSolutiiCautate == 0:
+            return 0, "gata"
+    lSuccesori = gr.genereazaSuccesori(nodCurent)
+    minim = float('inf')
+    for s in lSuccesori:
+        nrSolutiiCautate, rez = construieste_drum(gr, s, limita, nrSolutiiCautate)
+        if rez == "gata":
+            return 0, "gata"
+        print("Compara ", rez, " cu ", minim)
+        if rez < minim:
+            minim = rez
+            print("Noul minim: ", minim)
+    return nrSolutiiCautate, minim
+
+
+ida_star(gr, nrSolutiiCautate=1)

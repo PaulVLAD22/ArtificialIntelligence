@@ -431,6 +431,7 @@ def a_star_open_closed(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
                 return out
         lSuccesori = gr.genereazaSuccesori(nodCurent, tip_euristica=tip_euristica)
         for s in lSuccesori:
+            # vad ce scot fie din lista open fie din succesori
             gasitC = False
             for nodC in l_open:
                 if s.info == nodC.info:
@@ -448,6 +449,7 @@ def a_star_open_closed(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
                         else:  # s.f<nodC.f
                             l_closed.remove(nodC)
                         break
+        # acum bag in ordine in lista open
         for s in lSuccesori:
             i = 0
             gasit_loc = False

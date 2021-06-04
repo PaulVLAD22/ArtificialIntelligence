@@ -1,16 +1,89 @@
 Solutie: 
-f :2
-Nr de Ordine:1
-Timp Calcul:0.000997781753540039
-Cost :0
-Lungime drum:0
+f :9
+Nr de Ordine:56
+Timp Calcul:0.01499032974243164
+Cost :5
+Lungime drum:5
 Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
 
 Matricea: 
-#b#
-225
+#.##
+#..#
+#ba#
+####
+
+
+----------------
+Solutie: 
+f :10
+Nr de Ordine:2967
+Timp Calcul:1.809469223022461
+Cost :6
+Lungime drum:6
+Miscari incercate:
+Am mutat b in jos
+# b # # 
+# . * # 
+# . a # 
+# # # # 
+Am mutat b in jos
+# . # # 
+# b * # 
+# . a # 
+# # # # 
+Am mutat * in stanga
+# . # # 
+# . * # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# . # # 
+# * . # 
+# b a # 
+# # # # 
+Am mutat * in sus
+# * # # 
+# . . # 
+# b a # 
+# # # # 
+Am mutat a in sus
+# . # # 
+# . . # 
+# b a # 
+# # # # 
+
+Matricea: 
+#.##
+#.a#
+#b.#
+####
 
 
 ----------------
 
-Numar noduri totale generate : 7
+Numar noduri totale generate : 1977

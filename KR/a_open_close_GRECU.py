@@ -11,16 +11,16 @@ noduri = ["a", "b", "c", "d", "e", "f", "g"]
 
 m = []
 
-vect_h = [0,4,11,9,7,0,5]
+vect_h = [4,4,9,10,11,0,5]
 mp = [
     #a  b  c  d   e  f  g
-    [0, 5, 4, 0, 0, 0, 0], #a
-    [0, 0, 1, 0, 0, 17, 19], #b
-    [0, 3, 0, 4, 8, 0, 0],  #c
-    [0, 0, 0, 0, 3, 0, 0],  #d
-    [0, 0, 3, 0, 0, 8, 2],  #e
+    [0, 2, 5, 11, 0, 0, 8], #a
+    [0, 0, 0, 3, 0, 20, 0], #b
+    [0, 1, 0, 0, 4, 22, 2],  #c
+    [0, 20, 4, 0, 0, 0, 0],  #d
+    [0, 0, 0, 0, 0, 11, 6],  #e
     [0, 0, 0, 0, 0, 0, 0],  #f
-    [0, 0, 0, 0, 0, 5, 0]]  #g
+    [0, 0, 0, 0, 19, 0, 0]]  #g
 
 print("NR MUCHII ",sum([len([i for i in x if i != 0]) for x in mp]))
 for i in range(len(mp)):
@@ -135,8 +135,8 @@ def a_star(gr):
     while len(l_open) > 0:
         print("Pas "+str(n))
         n+=1
-        print("Coada actuala: " + str(l_open))
-        print("Coada inchisa: "+str(l_closed))
+        print("open: " + str(l_open))
+        print("closed: "+str(l_closed))
         print("\n"*2)
         nodCurent = l_open.pop(0)
         l_closed.append(nodCurent)
@@ -174,6 +174,7 @@ def a_star(gr):
                         if s.f >= nodC.f:
                             # pass
                             toBeEliminated.append(index)
+                            print("Nodul " +nodC.info+ " din closed nu a fost inlocuit")
                             # lSuccesori.remove(s)
                             #print("Removed",s)
                             # print(lSuccesori)

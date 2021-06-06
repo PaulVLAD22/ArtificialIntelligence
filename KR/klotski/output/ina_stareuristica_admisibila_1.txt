@@ -1,7 +1,7 @@
 Solutie: 
 f :5
 Nr de Ordine:70
-Timp Calcul:0.022000551223754883
+Timp Calcul:0.020016908645629883
 Cost :5
 Lungime drum:5
 Miscari incercate:
@@ -42,7 +42,7 @@ Matricea:
 Solutie: 
 f :6
 Nr de Ordine:73
-Timp Calcul:0.02300119400024414
+Timp Calcul:0.021004915237426758
 Cost :6
 Lungime drum:6
 Miscari incercate:

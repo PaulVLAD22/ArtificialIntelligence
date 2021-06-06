@@ -40,15 +40,14 @@ class NodParcurgere:
 
     def __repr__(self):
         sir = ""
-        sir += self.info + "("
-        sir += "id = {}, ".format(self.id)
-        sir += "drum="
-        drum = self.obtineDrum()
-        sir += ("->").join(drum)
+        sir += "(info:"+self.info
         sir += " g:{}".format(self.g)
-        sir += " h:{}".format(self.h)
 
-        sir += " f:{})".format(self.f)
+        sir += " f:{} ".format(self.f)
+        if (self.parinte):
+            sir += "parinte:{})".format(self.parinte.info)
+        else:
+            sir+="parinte:None)"
         return (sir)
 
 
@@ -97,20 +96,20 @@ noduri = ["a", "b", "c", "d", "e", "f", "g"]
 
 m = []
 
-
+vect_h = [0,4,11,9,7,0,5]
 mp = [
-    [0, 10, 0, 0, 0, 0, 5],
-    [7, 0, 3, 4, 0, 0, 0],
-    [0, 5, 0, 0, 2, 0, 0],
-    [0, 0, 0, 0, 2, 0, 0],
-    [0, 0, 0, 0, 0, 7,3],
+    [0, 5, 4, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 17, 19],
+    [0,3, 0, 4, 8, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0],
+    [0, 0, 3, 0, 0, 8,2],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 9, 0, 0, 20, 0]]
+    [0, 0, 0, 0, 0, 5, 0]]
+
 
 start = "a"
 scopuri = ["f"]
 # exemplu de euristica banala (1 daca nu e nod scop si 0 daca este)
-vect_h = [7,8,7,5,4,0,9]
 
 gr = Graph(noduri, m, mp, start, scopuri, vect_h)
 NodParcurgere.graf = gr;
@@ -119,6 +118,7 @@ NodParcurgere.graf = gr;
 def a_star(gr):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
     l_open = [NodParcurgere(gr.noduri.index(gr.start), gr.start, None, 0, gr.calculeaza_h(gr.start))]
+    noduri = [l_open[0]]
 
     # l_open contine nodurile candidate pentru expandare
     n=1
@@ -127,8 +127,8 @@ def a_star(gr):
     while len(l_open) > 0:
         print("Pas "+str(n))
         n+=1
-        print("Coada actuala: " + str(l_open))
-        print("Coada inchisa: "+str(l_closed))
+        print("open: " + str(l_open))
+        print("coada: "+str(l_closed))
         input()
         nodCurent = l_open.pop(0)
         l_closed.append(nodCurent)
@@ -136,19 +136,25 @@ def a_star(gr):
             print("Solutie: ", end="")
             nodCurent.afisDrum()
             print("\n----------------\n")
+            print("Noduri:")
+            print(noduri)
             return
         print("S-a extins " +nodCurent.info)
         lSuccesori = gr.genereazaSuccesori(nodCurent)
-        for s in lSuccesori:
+        #print (lSuccesori)
+        toBeEliminated = []
+        for index, s in enumerate(lSuccesori):
+            #print (f'Succesor actual {s}')
             gasitC = False
             for nodC in l_open:
                 if s.info == nodC.info:
                     gasitC = True
                     if s.f >= nodC.f:
-                        print("nodul vechi "+nodC.info+" nu a fost inlocuit")
-                        lSuccesori.remove(s)
+                        print("nodul vechi din open "+nodC.info+" nu a fost inlocuit")
+                        # lSuccesori.remove(s)
+                        toBeEliminated.append(index)
                     else:  # s.f<nodC.f
-                        print("nodul vechi " + nodC.info + " a fost inlocuit de unul cu cost mai mic")
+                        print("nodul vechi din open" + nodC.info + " a fost inlocuit de unul cu cost mai mic")
                         l_open.remove(nodC)
                     break
             if not gasitC:
@@ -157,11 +163,15 @@ def a_star(gr):
                         if s.f >= nodC.f:
                             lSuccesori.remove(s)
                         else:  # s.f<nodC.f
-                            print("Nodul "+nodC.info +" a fost inlocuit de " + s.__repr__())
+                            print("Nodul din close "+nodC.info +" a fost inlocuit de " + s.__repr__())
                             l_closed.remove(nodC)
                         break
+        #print (f'Indecsi: {toBeEliminated}')
+        for index in sorted(toBeEliminated, reverse=True):
+            lSuccesori.pop(index)
         for s in lSuccesori:
             i = 0
+            noduri.append(s)
             gasit_loc = False
             for i in range(len(l_open)):
                 # diferenta fata de UCS e ca ordonez crescator dupa f
@@ -173,5 +183,6 @@ def a_star(gr):
                 l_open.insert(i, s)
             else:
                 l_open.append(s)
+
 
 a_star(gr)

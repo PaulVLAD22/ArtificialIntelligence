@@ -40,15 +40,14 @@ class NodParcurgere:
 
     def __repr__(self):
         sir = ""
-        sir += self.info + "("
-        sir += "id = {}, ".format(self.id)
-        sir += "drum="
-        drum = self.obtineDrum()
-        sir += ("->").join(drum)
+        sir += "(info:" + self.info
         sir += " g:{}".format(self.g)
-        sir += " h:{}".format(self.h)
 
-        sir += " f:{})".format(self.f)
+        sir += " f:{} ".format(self.f)
+        if (self.parinte):
+            sir += "parinte:{})".format(self.parinte.info)
+        else:
+            sir += "parinte:None)"
         return (sir)
 
 
@@ -96,18 +95,19 @@ class Graph:  # graful problemei
 noduri = ["a", "b", "c", "d", "e", "f", "g"]
 
 m = []
+vect_h = [7,8,7,5,4,0,9]
 mp = [
     [0, 10, 0, 0, 0, 0, 5],
     [7, 0, 3, 4, 0, 0, 0],
-    [0, 5, 0, 0, 2, 0, 0],
+    [0,5, 0, 0, 2, 0, 0],
     [0, 0, 0, 0, 2, 0, 0],
-    [0, 0, 0, 0, 0, 7,3],
+    [0, 0, 3, 0, 0, 7,3],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 9, 0, 0, 20, 0]]
+    [0, 0,9, 0, 0, 20, 0]]
 start = "a"
 scopuri = ["f"]
 # exemplu de euristica banala (1 daca nu e nod scop si 0 daca este)
-vect_h = [7,8,7,5,4,0,9]
+
 
 gr = Graph(noduri, m, mp, start, scopuri, vect_h)
 NodParcurgere.graf = gr;
@@ -117,9 +117,10 @@ def ida_star(gr, nrSolutiiCautate):
     nodStart = NodParcurgere(gr.indiceNod(gr.start), gr.start, None, 0, gr.calculeaza_h(gr.start))
     limita = nodStart.f
     while True:
+        stiva = []
 
         print("Limita de pornire: ", limita)
-        nrSolutiiCautate, rez = construieste_drum(gr, nodStart, limita, nrSolutiiCautate)
+        nrSolutiiCautate, rez = construieste_drum(gr, nodStart, limita, nrSolutiiCautate,stiva)
         if rez == "gata":
             break
         if rez == float('inf'):
@@ -128,10 +129,13 @@ def ida_star(gr, nrSolutiiCautate):
         limita = rez
         print(">>> Limita noua: ", limita)
         input()
+        print()
 
 
-def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate):
+def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate,stiva):
     print("A ajuns la: ", nodCurent)
+    stiva.append(nodCurent.info)
+    print(stiva)
     if nodCurent.f > limita:
         return nrSolutiiCautate, nodCurent.f
     if gr.testeaza_scop(nodCurent) and nodCurent.f == limita:
@@ -146,13 +150,13 @@ def construieste_drum(gr, nodCurent, limita, nrSolutiiCautate):
     lSuccesori = gr.genereazaSuccesori(nodCurent)
     minim = float('inf')
     for s in lSuccesori:
-        nrSolutiiCautate, rez = construieste_drum(gr, s, limita, nrSolutiiCautate)
+        nrSolutiiCautate, rez = construieste_drum(gr, s, limita, nrSolutiiCautate,stiva)
         if rez == "gata":
             return 0, "gata"
-        print("Compara ", rez, " cu ", minim)
         if rez < minim:
             minim = rez
-            print("Noul minim: ", minim)
+            stiva.pop()
+            print("INTOARCERE")
     return nrSolutiiCautate, minim
 
 

@@ -231,7 +231,7 @@ class Graph:  # graful problemei
         for piesa in nodCurent.listaPiese:
             pozitii = self.pozitii_dupa_piesa(copie_matrice, piesa)
 
-            pret = len(pozitii) if (piesa != "*") else 1
+            pret = len(pozitii) if (piesa != "*") else 1 # Costul mutarii
 
             if (self.mutare_stanga_valida(copie_matrice, pozitii, piesa)):
 
@@ -334,18 +334,18 @@ class Graph:  # graful problemei
                                     distanta = abs(i - x[0]) + abs(j - x[1])
 
                 return distanta
-        elif (tip_euristica == "euristica_neadmisibila"):  # distanta maxima fata de un #
+        elif (tip_euristica == "euristica_neadmisibila"):  # distanta maxima fata de o margine
+                                                            # pe ida star da drum neoptim
 
             pozitii = self.pozitii_dupa_piesa(infoNod, "*")
             distanta = 0
             for i in range(len(infoNod)):
                 for j in range(len(infoNod[i])):
-                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1) and (
-                            infoNod[i][j] == "#"):
+                    if (i == 0 or i == len(infoNod) - 1 or j == 0 or j == len(infoNod[i]) - 1):
                         for x in pozitii:
                             if (distanta < abs(i - x[0]) + abs(j - x[1])):
                                 distanta = abs(i - x[0]) + abs(j - x[1])
-            return len(infoNod)-distanta
+            return distanta
 
 def uniform_cost(gr, nrSolutiiCautate=1, tip_euristica='euristica_banala'):
     # in coada vom avea doar noduri de tip NodParcurgere (nodurile din arborele de parcurgere)
@@ -418,7 +418,7 @@ def a_star_open_closed(gr, nrSolutiiCautate, tip_euristica='euristica_banala'):
     # l_closed contine nodurile expandate
     l_closed = []
     while len(l_open) > 0:
-        print("Coada actuala: " + str(l_open))
+        #print("Coada actuala: " + str(l_open))
 
         nodCurent = l_open.pop(0)
         l_closed.append(nodCurent)

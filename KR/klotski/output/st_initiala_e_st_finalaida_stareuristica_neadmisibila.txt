@@ -1,5 +1,5 @@
 Solutie: 
-f :4
+f :0
 Nr de Ordine:1
 Timp Calcul:0.0
 Cost :0
@@ -11,12 +11,12 @@ Matricea:
 #.a#
 #.a#
 ####
-4
+0
 ----------------
 Solutie: 
-f :6
+f :2
 Nr de Ordine:3
-Timp Calcul:0.0010004043579101562
+Timp Calcul:0.0010006427764892578
 Cost :2
 Lungime drum:1
 Miscari incercate:
@@ -31,7 +31,7 @@ Matricea:
 #a.#
 #a.#
 ####
-6
+2
 ----------------
 
 Numar noduri totale generate : 18

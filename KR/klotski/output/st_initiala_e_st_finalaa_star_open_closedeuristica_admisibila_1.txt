@@ -17,7 +17,7 @@ Matricea:
 Solutie: 
 f :2
 Nr de Ordine:2
-Timp Calcul:0.0009996891021728516
+Timp Calcul:0.0
 Cost :2
 Lungime drum:1
 Miscari incercate:

@@ -1,7 +1,7 @@
 Solutie: 
 f :5
 Nr de Ordine:109
-Timp Calcul:0.02600693702697754
+Timp Calcul:0.025002002716064453
 Cost :5
 Lungime drum:5
 Miscari incercate:
@@ -41,7 +41,7 @@ Matricea:
 Solutie: 
 f :6
 Nr de Ordine:218
-Timp Calcul:0.06301593780517578
+Timp Calcul:0.05899834632873535
 Cost :6
 Lungime drum:6
 Miscari incercate:
@@ -84,4 +84,4 @@ Matricea:
 6
 ----------------
 
-Numar noduri totale generate : 2344
+Numar noduri totale generate : 976
